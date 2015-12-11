@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>表单验证</title>
+  <style type="text/css">
+  *{margin:0;padding:0;}
+	span{display:inline-block;width:180px;text-align:right;font-weight:bold;}
+	lable{color:red;}
+  </style>
+  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery.validate.js"></script>
+  <script type="text/javascript" >
+  $(function(){
+	$("#register").validate({
+		rules:{
+			username:{
+				required:true,
+				minlength:5,
+			},
+			password:{required:true,minlength:6},
+			repass:{required:true,equalTo:"#password"},
+			idcardNo:{required:true,forIdCardNo:true},
+			//phone:{},
+			email:{email: true},
+			url:{required:true,url:true},
+		},
+		onkeyup:true,
+		messages:{
+			username:{required:"用户名不能为空",minlength: "用户名长度不能少于 6位"},
+			password:{required:"请输入密码",minlength:"mima长度不能少于 6位"},
+			repass:{required:"请再次输入密码",equalTo:"#password"},
+			idcardNo:{forIdCardNo:"22身份证号码不对"},
+			//phone:{},
+			email:{required:"邮箱不能为空",email:"邮箱要填正确！"},
+			url:{url:"空间路径有误，请检查，记得前面加http://"}
+		}
+
+	});
+  });
+  //自定义验证方法 ---此处是验证身份证号码
+  $.validator.addMethod('forIdCardNo',function(value,element){
+		//
+		var len = value.length;
+		var idcard = /^[1-9]{1}[0-9]{5}19[0-9]{2}[0-1]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-9]{0,3}[xX0-9]{1}$/;
+		return this.optional(element)||(idcard.test(value));
+  
+  },"身份证号码不正确！");
+
+
+  </script>
+ </head>
+ <body >
+ 
+	<form id="register" action="" method="post">
+		<span for="username">用户名：</span><input id="username" name="username"/><br/>
+		<span for="password">密码：</span><input id="password" type="password"  name="password"/><br/>
+		<span for="repass">确认密码：</span><input id="repass" name="repass" /><br/>
+		<span for="idcardNo">身份证号：</span><input id="idcardNo" class="forIdCardNo" name="idcardNo"/><br/>
+		<span for="email">邮箱：</span><input id="email" name="email"/><br/>
+		<span for="phone">手机：</span><input id="phone" name="phone"/><br/>
+		<span for="url">空间地址：</span><input id="url" name="url"/><br/>
+		<input type="submit" value="提 交">
+	</form>
+ 
+ </body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>画星星</title>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<script>
+window.onload=function(){
+var canvas =document.getElementById("canvas");
+var context =canvas.getContext("2d");
+canvas.width=1000;
+canvas.height=800;
+
+/*drawStrokeStar(context,300,300,100,200,40,2)
+drawFillStar(context,400,500,100,200,40,2,"red")
+drawStrokeStar(context,600,700,100,200,40,2)*/
+context.fillRect(0,0,canvas.width,canvas.height)
+	for (var i=0;i<200;i++){
+		var r =Math.random()*10+10;
+		var x =Math.random()*canvas.width-2*r;
+		var y =Math.random()*canvas.height-2*r;
+		var rot =Math.random()*160;
+		drawFillStar(context,x+r,y+r,r,r/2,rot,2,"yellow")
+	}
+}
+/**
+画五角星的方法
+参数：cxt canvas上下文
+* x：星星的中心坐标 ，y: 星星的中心y轴坐标
+*r ： 星星中间尖的圆半径
+*R ： 星星外接圆半径
+*rotation：星星逆时针旋转的角度
+*lw： 线条宽度
+*/
+function drawStrokeStar (cxt, x, y , r, R,rotation,lw){
+	cxt.beginPath();
+	cxt.lineWidth=lw;
+	for (var i=0;i<5;i++){
+		cxt.lineTo(Math.cos((18+i*72-rotation)/180*Math.PI)*R+x , Math.sin(-(18+i*72-rotation)/180*Math.PI)*R+y);
+		cxt.lineTo(Math.cos((54+i*72-rotation)/180*Math.PI)*r+x , Math.sin(-(54+i*72-rotation)/180*Math.PI)*r+y);
+	}
+	cxt.closePath();
+	cxt.stroke()
+}
+/**
+画五角星的方法
+参数：cxt canvas上下文
+* x：星星的中心坐标 ，y: 星星的中心y轴坐标
+*r ： 星星中间尖的圆半径
+*R ： 星星外接圆半径
+*rotation：星星逆时针旋转的角度
+*lw： 线条宽度
+*/
+function drawFillStar (cxt, x, y , r, R,rotation,lw,color){
+	cxt.beginPath();
+	cxt.lineWidth=lw;
+	cxt.fillStyle=color;
+	cxt.strokeStyle="#fb3"
+	cxt.lineJoin="round"
+	for (var i=0;i<5;i++){
+		cxt.lineTo(Math.cos((18+i*72-rotation)/180*Math.PI)*R+x , Math.sin(-(18+i*72-rotation)/180*Math.PI)*R+y);
+		cxt.lineTo(Math.cos((54+i*72-rotation)/180*Math.PI)*r+x , Math.sin(-(54+i*72-rotation)/180*Math.PI)*r+y);
+	}
+	cxt.closePath();
+	cxt.fill()
+	cxt.stroke()
+	
+}
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)http://www.html5tricks.com/demo/css3-ribbon-3d-icon-menu/index.html# -->
+<html class=" -webkit-"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta charset="UTF-8">
+
+  <title>CSS3飘带状3D菜单DEMO演示</title>
+
+    <style>
+* {
+  padding : 0;
+  margin  : 0;
+  border  : 0;
+}
+
+*:after , *:before {
+  display : block;
+  content : "";
+  position: absolute;
+}
+body {
+  background-color : #3d332a;
+  padding-top     : 50px;
+}
+nav {
+  height: 0;
+  width: 607px;
+  position: relative;
+  margin: 100px auto;
+}
+nav .ribbon {
+  position : absolute;
+  top: 26px;
+  border-style : solid ;
+  border-width : 38px;
+}
+.ribbon.left {
+  left: -50px;
+  border-color: #EAE2D5 #EAE2D5 #EAE2D5 transparent;
+}
+.left:after {
+  right: -38px;
+  bottom: -38px;
+  border-style: solid;
+  border-width: 13px;
+  border-color: #857E74 #857E74 transparent transparent;
+}
+.ribbon.right {
+  right: -50px;
+  border-color: #EAE2D5 transparent #EAE2D5 #EAE2D5 
+}
+.right:before {
+  left: -38px;
+  bottom: -38px;
+  border-style: solid;
+  border-width: 13px;
+  border-color: #857E74 transparent transparent #857E74
+}
+  nav:before {
+  height: 76px;
+  width: 60px;
+  top: 0;
+  left: 0;
+  background-color: #EAE2D5;
+  border-left: 1px solid #3d332a;
+  z-index: 1;
+}
+nav:after {
+  height: 76px;
+  width: 60px;
+  top: 0;
+  right:0;
+  background-color: #EAE2D5;
+  border-right: 1px solid #3d332a;
+}
+nav menu {
+  position: absolute;
+  left: 42px;
+  height: 76px;
+  clear: both;
+}
+nav menu li {
+  position: relative;
+  float: left;
+  margin-left : 33px;
+  cursor : pointer;
+  background-color : #eae2d5;
+  list-style-type : none;
+  border-left : 2px solid #d7cfc2;
+  border-right : 2px solid #d7cfc2;
+  transition : margin .1s ,padding .1s ,border 1s;
+}
+
+menu li:before {
+  width: 20px;
+  height: 76px;
+  right: 100%;
+  top: 0;
+  background-color: #EAE2D5;
+  transition : all .1s;
+}
+menu li:after {
+  width: 20px;
+  height: 76px;
+  left: 100%;
+  top: 0;
+  background-color: #EAE2D5;
+  transition : all .1s;
+}
+menu li:hover {
+  margin-top: -9px;
+  box-shadow : 0 4px 10px 0px #000;
+  transition : margin .2s ,padding .2s;
+}
+li:hover:before , li:hover:after {
+  height : 86%;
+  background         : #d7cfc2;
+  transition : all .2s;
+}
+li:hover:before {
+  transform: rotate(-30deg) skew(-30deg) translateX(0.5px) translateY(9px);
+}
+li:hover:after {
+  transform: rotate(30deg) skew(30deg) translateX(0.5px) translateY(9px);
+}
+menu li a {
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  text-align: center;
+}
+menu li a span {
+  display: block;
+  font-weight: 600;
+}
+menu li a span:first-child {
+  font-family: icon;
+  height: 40px;
+  width: 55px;
+  font-size: 30px;
+  text-align: center;
+  color: #857E74;
+}
+menu li a span:last-child {
+  text-transform: capitalize;
+  height: 16px;
+  width: 55px;
+  color: #6488BA;
+}
+li:hover a span:first-child {
+  color: #6488BA;
+}
+li:hover a span:last-child {
+  color: #857E74;
+}
+@font-face {
+  font-family :icon;
+  src: url('../css/fonts/icons.woff'); 
+}
+</style>
+
+</head>
+
+<body style="">
+
+  <nav>
+  <menu>
+    <li>
+      <a href="#">
+        <span>t</span>
+        <span>twitter</span>
+      </a>
+    </li>
+    <li id="at">
+     <a href="#">
+       <span>c</span>
+       <span>codepen</span>
+     </a>
+   </li>
+    <li>
+      <a href="#">
+        <span>d</span>
+        <span>dribbble</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <span>g</span>
+        <span>google+</span>
+      </a>
+    </li>
+  </menu>
+  <div class="ribbon left"></div>
+  <div class="ribbon right"></div>
+</nav>
+
+</body></html>
+
+
+<!-- 
+
+
+body {
+  background-color : #3d332a;
+  background-image : url('9690bg.jpg');
+  padding-top     : 50px;
+}
+
+nav {
+  width : 476px;
+  margin: auto;
+  position : relative;
+}
+
+menu:after , menu:before {
+  top       : 0;
+  width     : 60px;
+  height    : 76px;
+  background: #eae2d5;
+} 
+
+menu:after {
+  clear : both;
+  right : -61px;
+  border-right : 1px solid #857e74;
+}
+
+menu:before {
+  left  : -55px;
+  border-left : 1px solid #857e74;
+}
+
+.ribbon {
+  position : absolute;
+  top      : 76px;
+  border-style : solid ;
+  border-width : 13px;
+}
+
+.ribbon.left {
+  left     : -55px;
+  border-color : #857e74 #857e74 transparent transparent;
+}
+
+.ribbon.right {
+  left         : 511px;
+  border-color : #857e74 transparent transparent #857e74; 
+}
+
+.left:after , .left:before {
+  left     : -68px;
+  border-style : solid;
+  z-index : -2;
+}
+
+.left:after {
+  top      : -68px;
+  border-width : 58px 0 0 56px;
+  border-color : #eae2d5 transparent transparent transparent;
+}
+
+.left:before {
+  top      : -26px;
+  border-width : 0 40px 38px 41px;
+  border-color : transparent transparent #eae2d5 transparent;     
+}
+
+.right:after , .right:before {
+  right    : -65px;
+  border-style : solid;
+  z-index : -2;
+}
+
+.right:before {
+  top      : -25px;
+  border-width : 0 40px 38px 38px;
+  border-color : transparent transparent #eae2d5 transparent;     
+}
+
+.right:after {
+  top      : -65px;
+  border-width : 58px 56px 0 0;
+  border-color : #eae2d5 transparent transparent transparent;
+}
+
+li {
+  float       : left;
+  position    : relative;
+  margin-left : 33px;
+  cursor      : pointer;
+  background-color   : #eae2d5;
+  list-style-type    : none;
+  border-left        : 2px solid #d7cfc2;
+  border-right       : 2px solid #d7cfc2;
+  transition : margin .1s ,padding .1s ,border 1s;
+}
+
+li:first-child {
+  margin-left : 20px;
+}
+
+li:before , li:after {
+  display    : block;
+  position   : absolute;
+  top        : 0;
+  width      : 20px;
+  height     : 100%;
+  background : inherit;
+  transition : all .1s;
+}
+
+li:before {
+  right : 100%;
+} 
+
+li:after {
+  left : 100%; 
+}
+li:hover {
+  margin-top       : -9px;
+  box-shadow         : 0 4px 10px 0px #000;
+  transition : margin .2s ,padding .2s;
+}
+
+li:hover:before , li:hover:after {
+  height : 86%;
+  background         : #d7cfc2;
+  transition : all .2s;
+}
+
+li:hover:before {
+  transform : rotate(-30deg) skew(-30deg) translate(1.5px,9px);
+}
+
+li:hover:after {
+  transform : rotate(30deg) skew(30deg) translate(-1.5px,9px);
+}
+
+a {
+  display : block;
+  padding : 10px 15px;
+  text-decoration : none;
+  text-align      : center
+}
+
+a span {
+  text-shadow : 1px 1px 1px #FFF;
+  color       : #857e74;
+  transition  : all .2s;
+}
+
+a span:first-child {
+  font-family : icon;
+  font-size   : 33px;
+  display     : block;
+}
+
+a span:last-child {
+  text-transform : capitalize;
+  font-family    : 'Georgia';
+  font-size      : 11px;
+  letter-spacing : 1px;
+  font-style     : italic;
+  color        : #6488ba;
+}
+
+li:hover span {
+  transition : all .2s;
+}
+
+li:hover a span:first-child {
+  color : #6488ba;
+  text-shadow  : 1px 1px 1px #FFF , 0 0 1px #6488ba;
+}
+
+li:hover a span:last-child {
+  color : #857e74;
+}
+
+
+
+ -->

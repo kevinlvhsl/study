@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="关键词一，关键词二">
+  <meta name="Description" content="网站描述内容">
+  <title>Document</title>
+  <!--css js 文件的引入-->
+  <style type="text/css">
+	*{margin:0px; padding:0px; }/*规矩，先清空浏览器自带间距*/
+	 #box{margin: 120px auto; position:relative; width:400px;height:400px; border:5px solid gray;}/*上下为0 左右居中，相对定位，指定宽高和背景颜色*/ 
+	 /*然后给两个图片容器宽高和定位,*/
+	 #box .simg{position:relative;width:400px;height:400px;}
+	 /*移动区块的创建*/
+	 #box .simg span.move{position:absolute;display:block ;width:70px;height:110px;background-color:rgba(235,239,248,0.5);left:0px; top:0px; border:1px solid #000; display:none;}
+	 /*遮罩阴影层，直接覆盖在图片上*/
+	 #box .simg span.shade{}
+	 /*大图片显示的框，定位:相对于父元素box来定位，先隐藏起来,一定要设置溢出隐藏，不隐藏则会全部显示出来，达不到效果*/
+	 #box .bimg{position:absolute;width:300px;height:300px;left:450px;top:20px;border:1px solid #6633ff;display:none; overflow:hidden;}
+	 #box .bimg img{position:absolute;}
+	 /* ***********这里不需要定义一个遮罩层，直接以simg这个div作为参考对象就行了*************/
+  </style>
+ </head>
+ <body>
+  
+  <div id="box">
+	<!--小图开始-->
+	<div class="simg">
+		<img src="../images/simg.jpg" />
+		<span class="move"></span>
+		<span class="shade"></span>
+
+	</div>
+	<!--小图结束-->
+	
+	<!--大图开始-->
+	<div class="bimg"><img src="../images/bimg.jpg" /></div>
+	<!--大图结束-->
+  </div>
+
+
+ <script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+//这里最好是先将元素都获取了，每次用都去获取也是浪费CPU的
+	var move =$("#box .simg span.move");//小滑块
+	var simg =$("#box div.simg");//放图片的div
+	var big_div =$("#box .bimg");//放大图片的显示窗
+	var big_img =$("#box .bimg img");//大图片
+//鼠标滑动到 simg(父元素div)上面时，透明滑块和右边大图区同时显示出来
+	simg.hover(
+	/*第一个函数表示鼠标移入的时候执行的动作*/
+	function(e){	
+		//移入时，把小移动块显示出来并定位在鼠标移入的位置
+		move.css("display","block");
+		big_div.css("display","block");
+	}
+	/*第二个函数表示鼠标移出的时候执行的动作 透明滑块和右边大图区同时 隐藏*/
+	,function(e){
+	//鼠标移出时，让小滑块隐藏，并且大图片也隐藏
+		move.css("display","none");
+		big_div.css("display","none");
+	});
+
+	//让透明的小滑块跟随鼠标位置移动
+	simg.mousemove(function(e){
+		//alert(e.clientX+","+e.clientY);
+		var leftX,topY,s_left,s_top,m_width,m_height,s_width,s_height,_left,_top; //变量定义写一行
+//预先定义变量  leftX,topY鼠标触发事件的 left top  s_left,s_top是simg的left，top；m_width,m_height：小滑块的宽度、高度  _left,_top：小滑块距离左边框和上边框的定位距离
+		leftX = e.clientX; //鼠标与浏览器X轴(左)的坐标（距离）
+		topY = e.clientY;  //鼠标与浏览器Y轴（上）的坐标（距离）
+		s_left=simg.offset().left;
+		s_top =simg.offset().top;
+		//var pos =move.position();
+		m_width=move.width(); 
+		m_height=move.height();
+		s_height=simg.height();
+		s_width=simg.width();
+		m_left=leftX-s_left-m_width/2; //透明小滑块左边的距离 = 小滑块到浏览器的左边距离-simg到浏览器左边的距离
+		m_top=topY-s_top-m_height/2;
+		
+		 //alert("x:"+_left+"---y:"+_top);
+		//做判断，不能让透明区块移出去
+		//alert(simg.width());
+		if(m_left<1){//不让从左边和右边出去
+			m_left=1;
+		}else if(m_left>s_width-m_width-1){
+			m_left=s_width-m_width-1;
+		}
+		if(m_top<1){//不从上面和下面出去
+			m_top=1;
+		}else if(m_top>s_height-m_height-1){
+			m_top=s_height-m_height-1;
+		}
+		//让移动滑块出现在鼠标移动的位置，并且不移出这个simg背景图片框
+		move.css({left:m_left-1,top:m_top-1});
+		//鼠标动的效果
+	    /*透明滑块能滑动最大的宽度*/
+		var move_max_width =s_width-m_width-2;
+		/*透明滑块能滑动最大的高度*/
+	    var move_max_height =s_height-m_height-2;
+		//滑动宽度的比例 在小图上面移动到了什么位置（移动的相对宽度/可移动的总宽度），大图也定位到什么位置 
+		var left_bili = m_left/move_max_width;  
+		//滑动高度的比例
+		var top_bili = m_top/move_max_height;
+	//经验证，定位必须为负值，因为框不动，所以只能图片动，向左或向上，left和top都为负
+	//还有一个问题就是滑动到右边时或出现空白的区域，可滑动的区域为整个图片，而大图显示的区块位置没有在小滑块上做限制
+		var big_left =left_bili*(big_img.width()-big_div.width());
+		var big_top =top_bili*(big_img.height()-big_div.height());
+		//alert(big_left+"--"+big_top);
+		big_img.css({left:-big_left,top:-big_top}); 
+	});
+</script>
+
+ </body>
+</html>

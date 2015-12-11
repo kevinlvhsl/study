@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>无标题文档</title>
+<script>
+
+	</script>
+<style>
+	body {
+		margin:0;padding:0;
+		background:#333;
+		-moz-user-focus:   ignore;    
+        -moz-user-input:   disabled;    
+        -moz-user-select:   none;    
+    }     
+	.box {
+		position:absolute;
+		top:100px;
+		left:200px;
+		width: 500px;height: 360px;
+	}
+	#img1{
+		position:absolute;
+		left:0;top:0;
+		opacity:.6;
+	}
+	#img2{
+		position:absolute;
+		left:0;top:0;
+		clip:rect(0 200px 200px 0);
+	}
+	#choose {
+		position:absolute;
+		left:0;top:0;
+		width:200px;
+		height:200px;
+		border:1px solid #fff;
+		cursor: move;
+	}
+	.dot {
+		position:absolute;
+		width:8px;
+		height:8px;
+		background:#fff;
+		
+	}
+	/* cursor: 鼠标悬停样式  nw 表示 左上角 西北方向箭头  se 东南方向箭头*/
+	#left-up {
+		left:-4px;top:-4px;
+		cursor:nw-resize;
+	}
+	#up {
+		left:50%;top:-4px;
+		margin-left:-4px;
+		cursor:n-resize;
+	}
+	#right-up {
+		right:-4px;top:-4px;
+		cursor:ne-resize;
+	}
+	#right {
+		right:-4px;top:50%;
+		margin-top:-4px;
+		cursor:e-resize;
+	}
+	#right-down {
+		right:-4px;bottom:-4px;
+		cursor:se-resize;
+	}
+	#down {
+		left:50%;bottom:-4px;
+		margin-top:-4px;
+		cursor:s-resize;
+	}
+	#left-down {
+		left:-4px; bottom:-4px;
+		cursor:sw-resize;
+	}
+	#left {
+		left:-4px;top:50%;
+		margin-top:-4px;
+		cursor:w-resize;
+	}
+	.preview {
+		display: inline-block;
+		position: relative;
+		top: 100px;
+		left: 720px;
+		width: 200px;height: 200px;
+	}
+	#img3 {
+		position: absolute;
+	}
+	.prevew .pre {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	</style>
+<!-- 手机 -->
+<link href="../css/nav.css" rel="stylesheet" type="text/css" media="only screen and (min-width:320px) and (max-width:766px)">
+</head>
+	<body>
+		<div id="main" class="box">
+			<img id="img1" src="../images/16.jpg" width="500px" height="360px">
+	        <img id="img2" src="../images/16.jpg" width="500px" height="360px">
+			<div id="choose" >
+	        	<div id="left-up" class="dot "></div>
+	            <div id="up" class="dot "></div>
+	            <div id="right-up" class="dot "></div>
+	            <div id="right" class="dot "></div>
+	            <div id="right-down" class="dot "></div>
+	            <div id="down" class="dot "></div>
+	            <div id="left-down" class="dot "></div>
+	            <div id="left" class="dot "></div>
+	        </div>
+		</div>
+		<div class="preview">
+			<img id="img3" src="../images/16.jpg" width="500px" height="360px">
+			<div class="pre"></div>
+		</div>
+	</body>
+    <script>
+    	window.onload= function(){
+    		document.onselectstart = function(event){
+				if(window.event) {
+					event =   window.event;
+				}
+				try {
+					var the = event.srcElement ;
+					if( !( ( the.tagName== "INPUT" && the.type.toLowerCase() == "text" ) || the.tagName== "TEXTAREA" ) )
+					{ return false; }
+					return true ;
+				} catch(e) {
+					return false;
+				}
+			}
+    		//document.onselectstart =new Function ('event.returnVlue= false');
+    		var box = document.getElementById("main");//外面大盒子
+    		var choice = document.getElementById("choose");//选取层
+			//加载之后，要给八个控制点都加上事件
+			var left_up = document.getElementById("left-up");
+			var up = document.getElementById("up");
+			var right_up = document.getElementById("cgetElementByIdoose right_up");
+			var right = document.getElementById("right");
+			var right_down = document.getElementById("right-down");
+			var down = document.getElementById("down");
+			var left_down = document.getElementById("left-down");
+			var left = document.getElementById("left");
+			var isKeyDown = false;
+			var clickTarget ;
+			var min_size = 60;
+			//鼠标是否在图片区域被按下了
+			var dots = document.getElementsByClassName("dot");
+			for (var i = dots.length - 1; i >= 0; i--) {
+				dots[i].onmousedown = function (e){
+					isKeyDown = true;
+					clickTarget = this.id;
+					console.log('鼠标按下了，坐标为 x：'+e.clientX+"--y:"+e.clientY);
+					e.stopPropagation()
+				}
+				window.onmouseup = function (e){
+					isKeyDown = false;/*
+					clickTarget = null;*/
+					console.log('鼠标放开了，坐标为 x：'+e.clientX+"--y:"+e.clientY)
+				}
+			};
+			preview ();
+			    
+			window.onmousemove = function (e){
+				if (isKeyDown) {//移动的同时是按下了鼠标的情况
+					switch (clickTarget){
+						case "up" : moveUp (e); break;
+						case "right" : moveRight (e); break;
+						case "down" : moveDown (e); break;
+						case "left" : moveLeft (e); break;
+						case "left-up" : moveLeft (e); moveUp (e); break;
+						case "right-up" : moveRight (e); moveUp (e); break;
+						case "left-down" : moveLeft (e); moveDown (e); break;
+						case "right-down" : moveRight (e); moveDown (e); break;
+					}
+					sync();
+					preview ();
+				}
+			}
+		
+		function moveUp (e){
+			//1.先获取鼠标位置
+			var y = e.clientY;
+			//2.获取盒子离屏幕边的距离
+			var pos_top = getPosition(choice).top; 
+			//3.获取选取框的宽高
+			var oldHeight = choice.offsetHeight -2 ;//边框
+ 
+			//判断鼠标最大值
+			if (y > pos_top+oldHeight-min_size) {
+				y = pos_top+oldHeight-min_size;
+			};
+			//判断鼠标最小值
+			if (y < getPosition(box).top) {
+				y = getPosition(box).top;
+			};
+			console.log(y+"---盒子上边沿：-"+pos_top);
+			var add =  pos_top - y  ; 
+			choice.style.height = oldHeight+add +"px";
+			choice.style.top = choice.offsetTop-add +"px";
+		}
+		function moveRight (e){
+			//1.先获取鼠标位置
+			var x = e.clientX;
+			//2.获取盒子离屏幕边的距离
+			var pos_left = getPosition(choice).left; 
+			//3.获取选取框的宽高
+			var oldWidth = choice.offsetWidth -2 ;//边框
+ 
+			//判断鼠标最大值
+			if (x > getPosition(box).left+box.offsetWidth) {
+				x = getPosition(box).left+box.offsetWidth;
+			};
+			//判断鼠标最小值
+			if (x < pos_left+min_size) {
+				x = pos_left+min_size;
+			};
+			console.log(x+"---盒子右边沿："+ (pos_left+oldWidth));
+			var add = x - (pos_left + oldWidth); 
+			choice.style.width = oldWidth + add +"px";		
+			//choice.style.top = choice.offsetTop-add +"px"; //左上角的顶点不用改变	
+		}
+		function moveDown (e){
+			//1.先获取鼠标位置
+			var y = e.clientY;
+			//2.获取盒子离屏幕边的距离
+			var pos_top = getPosition(choice).top; 
+			//3.获取选取框的宽高
+			var oldHeight = choice.offsetHeight -2 ;//边框
+
+ 			//判断鼠标最小值
+ 			if (y < pos_top+min_size) {
+				y = pos_top+min_size;
+			};
+			//判断鼠标最大值
+			if (y > getPosition(box).top+box.offsetHeight) {
+				y = getPosition(box).top+box.offsetHeight;
+			};
+			console.log(y+"---盒子上边沿："+(pos_top+oldHeight)+"  :"+( getPosition(box).top+box.offsetHeight));
+			var add =  y - (pos_top + oldHeight); 
+			choice.style.height = oldHeight + add +"px";
+			//choice.style.top = choice.offsetTop-add +"px"; //左上角的顶点不用改变
+		}
+		//左边移动	
+		function moveLeft (e){
+			//1.先获取鼠标位置
+			var x = e.clientX;
+			//2.获取盒子离屏幕边的距离
+			var pos_left = getPosition(choice).left; 
+			//3.获取选取框的宽高
+			var oldWidth = choice.offsetWidth -2 ;//边框
+ 
+			//判断鼠标最大值
+			if (x > pos_left+oldWidth-min_size) {
+				x = pos_left+oldWidth-min_size;
+			};
+			//判断鼠标最小值
+			if (x < getPosition(box).left) {
+				x = getPosition(box).left;
+			};
+			console.log(x+"---盒子左边沿："+ pos_left);
+			var add = pos_left - x; 
+			choice.style.width = oldWidth + add +"px";		
+			choice.style.left = choice.offsetLeft-add +"px"; //左上角的顶点不用改变	
+		}
+		/**
+		* 
+		* 获取元素相对于屏幕左边的距离，利用offsetLeft 和 offsetTop
+		* return position {top:'',left:''} 
+		*/
+		function getPosition (node) {
+			var position = {};
+			var left = node.offsetLeft; 
+			var top = node.offsetTop;
+			var parent = node.offsetParent;
+			while (parent){
+				left += parent.offsetLeft;
+				top += parent.offsetTop;
+				parent = parent.offsetParent;
+			}
+			position.left = left;
+			position.top = top;
+			return position;
+		}
+		//让选取区域同步实现大小变化
+		function sync(){
+			var top = choice.offsetTop ;
+			var left = choice.offsetLeft ;
+			var right = choice.offsetLeft + choice.offsetWidth;
+			var down = choice.offsetTop + choice.offsetHeight;
+			var second = document.getElementById("img2");
+			second.style.clip= "rect("+top+"px,"+right+"px,"+down+"px,"+left+"px)";
+			//console.log(second.style.clip)
+		}
+
+		//预览效果
+		function preview (){
+			var top = choice.offsetTop ;
+			var left = choice.offsetLeft ;
+			var right = choice.offsetLeft + choice.offsetWidth;
+			var down = choice.offsetTop + choice.offsetHeight;
+			var prev = document.getElementById("img3");
+			prev.style.clip= "rect("+top+"px,"+right+"px,"+down+"px,"+left+"px)";
+			prev.style.width = 200 +"px";
+			prev.style.height = 200 +"px";
+		}
+	}
+
+		
+    </script>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="关键词一，关键词二">
+  <meta name="Description" content="网站描述内容">
+  <title>Document</title>
+  <!--css js 文件的引入-->
+  <style type="text/css">
+  *{margin:0px; padding:0px;}
+  body{background:url("../images/bltbg6.jpg") no-repeat;}
+  .Menu{width:200px;height:252px; background:#fff; position:absolute; left:500px; top:100px; z-index:33;
+        display:none; cursor:pointer;}
+  .Menu ul li{list-style-type:none;height:35px; font-size:14px; color:#000; line-height:35px;
+				text-indent:25px; font-family:"微软雅黑"; border-bottom:1px solid #ddd;}
+  .Menu ul li.hover{background:#009999; color:#fff;}
+
+  #desk_list{width:100%;height:100%;}
+   .desk{width:294px; height:250px; background:green; position:absolute; padding-top:60px;cursor:move;}
+   .desk .desk_con{width:250px;height:200px; background:#fff;margin:0px auto;}
+   .desk  p{height:40px; line-height:40px; text-align:center; font-size:12px;}
+   .desk  p span{color:red; padding:0px 5px; font-size:14px; font-family:"Arial";}
+  
+  </style>
+  <script type="text/javascript" src="../js/jquery.js"></script>
+ </head>
+ <body>
+
+ <!--菜单开始-->
+ <div class="Menu">
+	<ul>
+		<li>新建文件夹</li>
+		<li class="hover">添加便签</li>
+		<li>清除便签</li>
+		<li>刷新</li>
+		<li>更换背景</li>
+		<li>注销</li>
+	</ul>
+ </div>
+ <div id="desk_list"></div>
+ <!--菜单结束-->
+
+<!--留言本的列表开始-->
+ <!--<div id="desk_list">
+	<div class="desk" style="background:url(../images/blt1.png); top:20px; left:50px;">
+		<div class="desk_con" contenteditable='true'></div>
+		<p><span>3</span>秒后自动保存</p>
+	</div>
+ </div>-->
+ <!--留言本的列表结束-->
+  <script type="text/javascript" >
+  var miao =5;
+  document.oncontextmenu=function(){return false;}  //频闭右键
+  document.onclick=function(){$(".Menu").css({display:""});return false;}  //点击页面让菜单消失
+  document.onmousedown =function(e){
+	  var key = e.keyCode || e.which;
+	 switch(key){//右键
+		 case 3 :
+		 	$(".Menu").css({left:e.clientX,top:e.clientY}).show(350);
+		 break;
+		}
+};
+/***ready方法，文档加载之前，先获取localStorage方法中的便利贴数据 */
+$(function(){
+	/** 假如上次保存了，就取出来放到容器中*/
+	if(localStorage.getItem("deskArry")!=null){
+		$("#desk_list").append(localStorage.getItem("deskArry"));
+	}
+	//$("#desk_list div.desk").myDrag();
+		//给所有可编辑的div绑定一个blur事件  三秒后自动保存
+	$("#desk_list div.desk_con").each(function(index, element) {
+        $(this).bind("blur",function(){
+		changeNum($(this).parent(),miao);
+		});
+    });
+	//給菜单项绑定点击事件
+	$(".Menu ul li").bind("click",function(e){
+		var _index =$(this).index();
+		switch(_index){
+			case 1:
+				var obj={};
+				obj.e =e;
+				obj.offset =$(this).closest(".Menu").offset();
+				obj.second =miao;
+				newBlt(obj); //调用创建便利贴的方法
+				obj=null;//调用结束后清空变量
+			break;
+			case 2:
+				localStorage.clear("deskArry");
+				$("#desk_list").find(".desk").remove();
+			break;
+			case 3:
+				window.location.reload();
+			break;
+			case 4:
+				var imgurl =$("body").css("background");
+				var imgnum =imgurl.substring(imgurl.indexOf('.')-1,imgurl.indexOf('.jpg'));//图片数字截取下
+				if(imgnum==6){//如果是最后一张，就换到第一张
+					urlp ="url('../images/bltbg0.jpg') no-repeat";
+					$("body").css("background",urlp);
+				}else{//中间的每次下一张
+					imgnum++;
+					urlp ="url('../images/bltbg"+imgnum+".jpg') no-repeat";
+					$("body").css("background",urlp);
+				}
+			break;
+			case 5:
+				window.location.href='../../index.html';
+			break;
+			
+		}
+		
+	});
+});
+
+	/***获取随机整数的通用方法*/
+	function getNum(start,end){//产生随机数字 start ~ end之间的随机数
+		if(start<=0) start =0;
+		if(start > end )  end =start;
+		var total = end - start +1;
+		return Math.floor(Math.random()*total + start);
+	}
+	
+	/***创建便利贴*/
+	function newBlt(obj){//新建便利贴的函数
+		//创建一个便利贴  
+		var str =$('<div class="desk" style="background:url(../images/blt'+getNum(1,3)+'.png); top:'+obj.offset.top+'px; left:'+obj.offset.left+'px;"><div   class="desk_con" contenteditable="true"></div> <p><span class="second" >'+obj.second+'</span>秒后自动保存</p> </div> ');
+		$("#desk_list").append(str);
+		//str.myDrag();
+		changeNum(str,obj.second); //调用定时器
+	}
+	
+	//定时器方法，每次改变秒钟的显示，倒计时完了之后再去保存localStorage
+	 function changeNum(obj,time){//给定一个对象、改变这个对象下面的p中的数字，
+	 //alert(obj.find("p .second").html())
+			var span =obj.find("p .second");
+			var count =time;
+			var clearTime=null;
+		clearTime=setInterval(function(){
+			count--;
+			span.html(count); //找到自动保存的时间，把他的值给
+			if(count<=0){
+				clearInterval(clearTime); //清除定时器
+			 //时间小于0的时候再去保存
+				autoSave("deskArry","#desk_list");
+			}
+		},1000);
+	 }
+	/**保存变量到localstorage的通用方法*/
+	function autoSave(name,id){
+		localStorage.setItem(name,$(id).html()); //把数据保存到我们本地存储器里面
+	}
+
+	/**拖动的方法*/
+	$.fn.myDrag = function() { 
+		var self = $(this); 
+		self.css("position", "absolute"); 
+		var p = self.position(); 
+		self.css({ left: p.left, top: p.top }); 
+		self.mousedown( 
+		function(event) { 
+		// debugger; 
+		self.data("ifDary", "true"); //保存状态，表示是否可以拖拽 
+		// debugger; 
+		var selfLeft = event.pageX - parseInt(self.css("left")); //计算出鼠标到这个元素的left 
+		var selfTop = event.pageY - parseInt(self.css("top")); //计算出鼠标到这个元素的top 
+		self.data("selfLeft", selfLeft); //保存坐标信息 
+		self.data("selfTop", selfTop); 
+		} 
+		); 
+		$(document).mouseup( 
+		function() { 
+		self.data("ifDary", "false"); 
+		//防止窗体飞到外面去 
+		var bWidth = $(window).width(); 
+		var bHeight = $(window).height(); 
+		var currentleft = parseInt(self.css("left")); 
+		var currenttop = parseInt(self.css("top")); 
+		if (currentleft <= 0) 
+		currentleft = 0; 
+		if (currentleft >= bWidth) 
+		currentleft = bWidth - self.width(); 
+		if (currenttop <= 0) 
+		currenttop = 0; 
+		if (currenttop >= bHeight) 
+		currenttop = bHeight - self.height(); 
+		self.css({ left: currentleft, top: currenttop }); 
+		} 
+		); 
+		$(document).mousemove(function(event) { 
+		var state = self.data("ifDary"); 
+		if (state && state == "true") { 
+		var selfLeft = event.pageX - parseInt(self.data("selfLeft")); //计算这个元素的left位置 
+		var selfTop = event.pageY - parseInt(self.data("selfTop")); 
+		self.css({ left: selfLeft, top: selfTop }); //设置这个元素的位置 
+		} 
+		}); 
+		return self; 
+		} 
+	
+	
+  </script>
+
+ </body>
+</html>
