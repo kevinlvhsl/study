@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="关键词一，关键词二">
+  <meta name="Description" content="网站描述内容">
+  <title>Document</title>
+  <!--css js 文件的引入-->
+  <style  type="text/css">
+  body{background:#000;overflow-x:hidden; }
+  div{position:absolute;}
+  .literBox{width:2px;height:20px;background:red;}
+  </style>
+  <script type="text/javascript" src="../js/jquery.js"></script> 
+  <script type="text/javascript">
+    var chip_num = 100; //碎片数量
+	var colors= [];  //装颜色值的数组
+	  function initColor(){ /*提前初始化好颜色值数组，提高性能*/
+		  for (var i=0;i<chip_num ; i++)
+		  {
+			  var _color=Math.ceil(Math.random()*16777215).toString(16); //转换成16进制
+				while(_color.length<6){
+				_color="0"+_color;
+				}
+				colors.push('#'+_color);
+		  }
+		  return colors;
+	  }
+  $(function(){
+	    initColor(); //页面加载完就初始化颜色值数组
+		$(document).click(function(e){
+			var x =e.clientX;//点击的left值
+			var y =e.clientY;//点击的top值
+			var doc_height =$(document).height();
+			var doc_width = $(document).width();
+			var speed = 20;
+			/*点击后创建一个div*/
+			$("<div class='literBox'></div>").css({left:x,top:doc_height}).appendTo($("body"))//创建div并添加到body中
+			.animate({top:y},400,function(){
+				$(this).remove();
+				var div_list =[];
+				for (var i=0;i<chip_num ;i++ )
+				{
+					var sp_div =$("<div>").css({width:"3",height:"3",background:colors[i],top:y,left:x}).appendTo($("body"));
+					sp_div.spedX=Math.random()*speed-speed/2;
+					sp_div.spedY=Math.random()*speed-speed/2;
+					div_list.push(sp_div);
+				}
+				setInterval(function(){//定时器，让烟花碎片定时的移动
+					for (var j=0;j<div_list.length ;j++ )
+					{	var div =div_list[j];
+						if(!div_list[j]) continue; //跳过当前这个，继续下一个
+						var position =div.position();
+						
+						div.css({left:position.left+div.spedX,top:position.top+div.spedY});
+						//div.spedY+=1;
+						var _x =Math.sqrt(((position.left-x)*(position.left-x))+((position.top-y)*(position.top-y)));
+						if(position.left<0 ||  position.left>doc_width || position.top>doc_height ||_x>100 ){
+							div.remove();
+						}
+					}
+				},30);
+			});   
+		});
+  });
+		/*function timer(div){
+			setInterval(function(){//定时器，让烟花碎片定时的移动
+				var position =div.position();
+				//alert(left+div.speedX);
+				div.css({left:position.left+div.speedX,top:position.top+div.speedY});
+				div.speedY+=1;
+				if(position.left<0 || position.left>doc_width || position.top>doc_height){
+					div.remove();
+				}
+			},20);
+		}*/
+  </script> 
+ </head>
+ <body>
+ </body>
+</html>

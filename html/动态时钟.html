@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>canvas动态时钟</title>
+</head>
+<style>
+#can {
+	border: 1px solid #ccc;
+}
+</style>
+<body>
+<canvas id="can" width="500" height="500"  style="background-color:#fff"> 您的浏览器暂不支持画布效果，请升级您的浏览器 </canvas>
+</body>
+<script type="text/javascript">
+//先获取canvas元素
+var canvas = document.getElementById("can");
+var c2d =canvas.getContext('2d');
+
+function dtime(){
+//每次先清除之前所画，重画
+c2d.clearRect(0,0,500,500);
+var now = new Date();
+var h = now.getHours();
+var mi = now.getMinutes();
+var s = now.getSeconds();
+//canvas获取2d平面
+/*在表盘中写字*/
+//写文字  也可以用fillText()c2d.fillText("动态时钟",228,355,100);
+c2d.beginPath();
+c2d.font="35px Verdana";
+//渐变
+var gradient=c2d.createLinearGradient(175,345,325,345);
+gradient.addColorStop("0","magenta");
+gradient.addColorStop("0.5","blue");
+gradient.addColorStop("1.0","red");
+c2d.lineWidth=1;
+c2d.strokeStyle=gradient;
+c2d.strokeText("动态时钟",175,345,150);
+//绘制
+c2d.stroke();
+//提笔
+c2d.closePath();
+c2d.save();
+/*把12点3.和6点9.写上去*/
+c2d.beginPath();
+//c2d.fillText("动态时钟",228,355,100);
+c2d.font="10px Verdana";
+c2d.lineWidth=2;
+c2d.strokeStyle='#000';
+//把原点移动表中心
+c2d.translate(250,250);
+c2d.strokeText("12",-6,-145);
+c2d.strokeText("1",75,-125);
+c2d.strokeText("2",125,-70);
+c2d.strokeText("3",145,5);
+c2d.strokeText("4",125,75);
+c2d.strokeText("5",75,129);
+c2d.strokeText("6",-5,150);
+c2d.strokeText("7",-75,129);
+c2d.strokeText("8",-129,79);
+c2d.strokeText("9",-149,5);
+c2d.strokeText("10",-129,-70);
+c2d.strokeText("11",-75,-125);
+//绘制
+c2d.stroke();
+//提笔
+c2d.closePath();
+c2d.restore();
+
+/*画表盘*/
+//下笔
+c2d.beginPath();
+//设置线性渐变
+var line_gradient = c2d.createLinearGradient(0,250,500,250);
+line_gradient.addColorStop("0",'#111fad');
+line_gradient.addColorStop('0.3','#ccc');
+line_gradient.addColorStop("0.6",'#ccc111');
+line_gradient.addColorStop('1.0','#89d63a');
+//将笔的颜色设置成渐变颜色
+c2d.strokeStyle=line_gradient;
+//设置笔接触面大小
+c2d.lineWidth=50;
+
+//画圆  圆心x坐标，y坐标，半径，画圆的起始角度，终止角度，圆的角度（用弧度计算 角度*π/180 ，最后的顺时还是逆时针）
+c2d.arc(250,250,210,0,360*Math.PI/180);
+//绘制
+c2d.stroke();
+//提笔
+c2d.closePath();
+/*画表盘结束*/
+/*画表刻度 -先画小时刻度*/
+
+/*设置笔触面积 */
+c2d.lineWidth=7;
+c2d.strokeStyle="#000";
+//秒钟每次走的角度
+var ss =s*6*Math.PI/180;
+//每秒时钟应走的角度=秒钟的角度除以3600
+var hh, mm ;
+hh=ss/3600;
+//console.log(hh);
+//分针每次走的角度=秒钟角度除以60
+mm=ss/60;
+		for(var i=0;i<12;i++){
+			c2d.save();//循环中保存刚刚画的环境
+			//下笔
+			c2d.beginPath();
+				//以圆心为中心旋转，画一笔，转动一个角度  
+				//重定义原点 以前是0,0  现在重新定义到250,250
+				c2d.translate(250,250);
+				//每次将圆旋转30度，第一次不需要移动画12点
+				c2d.rotate(i*30*Math.PI/180);
+				c2d.moveTo(0,-160);
+				c2d.lineTo(0,-185);
+			//绘制
+			c2d.stroke();
+			//提笔
+			c2d.closePath();
+			//返回之前保存过的路径状态和属性
+			c2d.restore();
+		}
+c2d.lineWidth=3;
+c2d.strokeStyle="blue";
+/*绘制分刻度*/
+	for(var i=0;i<60;i++){
+		if(i%5!=0){
+			c2d.save();//循环中保存刚刚画的环境
+			//下笔
+			c2d.beginPath();
+				//以圆心为中心旋转，画一笔，转动一个角度  
+				//重定义原点 以前是0,0  现在重新定义到250,250
+				c2d.translate(250,250);
+				//每次将圆旋转30度，第一次不需要移动画12点
+				c2d.rotate(i*6*Math.PI/180);
+				c2d.moveTo(0,-170);
+				c2d.lineTo(0,-185);
+			//绘制
+			c2d.stroke();
+			//提笔
+			c2d.closePath();
+			//返回之前保存过的路径状态和属性
+			c2d.restore();
+		}
+	}
+
+/*画表刻度结束*/
+/*画指针 -时针*/
+c2d.save();
+c2d.lineWidth=7;
+c2d.strokeStyle="#000";
+c2d.translate(250,250);
+//alert(mi*12/60);
+c2d.rotate(((h*30+mi*30/60)*Math.PI/180)+hh);
+//下笔
+c2d.beginPath();
+
+c2d.moveTo(0,-137);
+c2d.lineTo(0,10);
+//绘制
+c2d.stroke();
+//提笔
+c2d.closePath();
+//返回之前保存过的路径状态和属性
+c2d.restore();
+/*画指针 -分针*/
+c2d.save();
+c2d.lineWidth=5;
+c2d.strokeStyle="#000";
+c2d.translate(250,250);
+
+c2d.rotate((mi*6*Math.PI/180)+mm);
+//下笔
+c2d.beginPath();
+
+c2d.moveTo(0,-145);
+c2d.lineTo(0,15);
+//绘制
+c2d.stroke();
+//提笔
+c2d.closePath();
+//返回之前保存过的路径状态和属性
+c2d.restore();
+	/*画指针 -秒针*/
+	c2d.save();
+	c2d.lineWidth=3;
+	c2d.strokeStyle="red";
+	c2d.translate(250,250);
+	c2d.rotate(s*6*Math.PI/180);
+	//下笔
+	c2d.beginPath();
+
+	c2d.moveTo(0,-150);
+	c2d.lineTo(0,15);
+	//绘制
+	c2d.stroke();
+	//提笔
+	c2d.closePath();
+	c2d.beginPath();
+	c2d.fillStyle="green";
+	c2d.arc(0,-136,4,0,360*Math.PI/180);
+	c2d.fill();
+	
+	c2d.moveTo(0,0);
+	c2d.arc(0,0,4,0,360*Math.PI/180);
+	c2d.fill();
+	//返回之前保存过的路径状态和属性
+	c2d.restore();
+	/*画指针结束*/
+	
+}
+/*定时器，让时钟动起来 每秒重画一次*/
+window.onload=dtime();
+setInterval(dtime,1000);
+
+
+</script>
+</html>

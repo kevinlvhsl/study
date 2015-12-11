@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>时钟描绘</title>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  	<style>
+  		.content{
+  			width:100%;
+  			height:300px;
+  		}
+  		.clock{
+  			width:100%;
+  			text-align: center;
+  			margin-top:150px;
+  		}
+  	</style>
+  </head>
+  <body>
+  
+  	<div class="content">
+  		<div class="clock">
+  			 <canvas id="clockCanvas"></canvas>
+  		</div>
+  	</div>
+  	<script>
+  		window.onload = function(){
+			var global = {
+				cvs:null,
+				ctx:null,
+				pointers:[]
+			};
+			
+			init();
+			function init(){
+				global.cvs = document.getElementById("clockCanvas");
+				if(global.cvs == null)
+					return false;
+				global.cvs.width = 300;
+				global.cvs.height = 300;
+				global.ctx = global.cvs.getContext('2d');
+				runClock();
+			}
+			
+			function runClock(){
+				initPointer();
+			}
+			
+			//画表盘
+			function drawCircle(){
+				global.ctx.beginPath();
+				global.ctx.arc(150,150,145,0,Math.PI * 2,false);
+				global.ctx.shadowBlur = 5;
+				global.ctx.shadowColor = "#ff00ff";
+				global.ctx.strokeStyle = "#ff00ff";
+				global.ctx.lineWidth = 2;
+				global.ctx.stroke();
+			}
+			
+			//画表中心
+			function drawCenter(){
+				global.ctx.save();
+				global.ctx.beginPath();
+				global.ctx.arc(150,150,5,0,Math.PI * 2,false);
+				global.ctx.shadowBlur = 5;
+				global.ctx.shadowColor = "#ff0099";
+				global.ctx.fillStyle = "#ff00ff";
+				global.ctx.fill();
+			}
+			
+			//画数字
+			function drawNumber(){
+				var angle = 270;
+				for(var i = 1; i <= 12; i++){
+					angle += 30;
+					var x = 120 * Math.cos(angle * Math.PI / 180) + 145;
+					var y = 120 * Math.sin(angle * Math.PI / 180) + 155;
+					global.ctx.font = "15px bolder";
+					global.ctx.fillText(i,x,y);
+				}
+			}
+				
+			//表针对象.r为旋转半径
+			function ClockLine(r,moveCount){
+				this.sPos;  
+				this.ePos;
+				if(moveCount)
+					this.moveCount = moveCount;
+				this.r = r;
+				this.draw = function(){
+					global.ctx.beginPath();
+					global.ctx.moveTo(this.sPos.x,this.sPos.y);
+					global.ctx.lineTo(this.ePos.x,this.ePos.y);
+					global.ctx.closePath();
+					global.ctx.stroke();
+				};
+				this.setPos = function(startPos,endPos){
+					this.sPos = startPos;
+					this.ePos = endPos;
+				};
+				this.lineMove = function(){
+					this.moveCount++;
+				};
+			}
+			
+			//画刻度
+			function drawScales(){
+				var angle = 270;
+				for(var i = 0; i < 60; i++){
+					var scale = new ClockLine(143);
+					var endX = scale.r * Math.cos( angle * Math.PI / 180) + 150;
+					var endY = scale.r * Math.sin( angle * Math.PI / 180) + 150;
+					if(i % 15 == 0){
+						var startX = ( scale.r - 15 ) * Math.cos( angle * Math.PI / 180) + 150;
+						var startY = ( scale.r - 15 ) * Math.sin( angle * Math.PI / 180) + 150;
+					}else{
+						startX = ( scale.r - 10 ) * Math.cos( angle * Math.PI / 180) + 150;
+						startY = ( scale.r - 10 ) * Math.sin( angle * Math.PI / 180) + 150;
+					}
+					scale.setPos({x:startX,y:startY,},{x:endX,y:endY,});
+					scale.draw();
+					angle += 6;
+				}
+			}
+			
+			//初始化时针，分针，秒针
+			function initPointer(){
+				var time = new Date();
+				var r = 110;
+				var count = [time.getSeconds(),time.getMinutes(),time.getHours() % 12 * 5 + Math.floor((time.getMinutes() / 12))];
+				for(var i = 0; i < 3; i++){
+					global.pointers[i] = new ClockLine(r,count[i]);
+					r -= 30;
+				}
+				drawPointer();
+			}
+			
+			//画表针
+			function drawPointer(){
+				global.ctx.clearRect(0,0,300,300);
+				drawCircle();
+				drawNumber();
+				drawScales();
+				global.ctx.restore();
+				global.ctx.shadowBlur = 5;
+				global.ctx.shadowColor = "#00b0f0";
+				global.ctx.strokeStyle = "#00b0f0";
+				for(var i = 0; i < 3; i++){
+					var endX = global.pointers[i].r * Math.cos( (270 + global.pointers[i].moveCount * 6) * Math.PI / 180) + 150;
+					var endY = global.pointers[i].r * Math.sin( (270 + global.pointers[i].moveCount * 6) * Math.PI / 180) + 150;
+					global.pointers[i].setPos({x:150,y:150},{x:endX,y:endY});
+					global.pointers[i].draw();
+				}
+				global.pointers[0].lineMove();
+				if(global.pointers[0].moveCount == 60){
+					global.pointers[0].moveCount = 0;
+					global.pointers[1].lineMove();
+				}
+				if(global.pointers[1].moveCount == 12){
+					global.pointers[1].moveCount = 0;
+					global.pointers[2].lineMove();
+				}
+				if(global.pointers[2].moveCount == 60)
+					global.pointers[2].moveCount = 0;
+				drawCenter();
+				setTimeout(function(){
+					drawPointer();
+				},1000);
+			}
+			
+		};
+  	</script>
+  </body>
+</html>

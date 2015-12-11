@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+  *{margin:0;padding:0;}
+  li{list-style:none;}
+  #div_lb{min-width:1000px;height:540px;position:relative;overflow:hidden;}
+  #div_lb ul{position:absolute;left:0;
+	/* transition: left 1s;
+	-moz-transition: left 1s;	Firefox 4
+	-webkit-transition: left 1s;	Safari 和 Chrome
+	-o-transition: left 1s; */
+  }
+  #div_lb ul li{float:left;}
+  #div_lb ul li img{position:relative;}
+
+  #btn {position:absolute;bottom:0;width:100%;text-align:center;
+		}
+  #btn a{display:inline-block;cursor:pointer;
+  	width:12px;height:12px;background:#ccccff;  
+  	border-radius:50%; }
+  #btn a.active {background:#0000ff;}
+  #btn a:hover{background:#0099ff;}
+  *html .ie6_out {margin-left:1000px;zoom:1;}
+  *html .ie6_in {position: relative;float: left;margin-left: -1000px;}
+  </style>
+  <script src="../js/startMove.js"></script>
+ </head>
+
+ <script>
+	window.onload= function(){
+		var oDiv = document.getElementById("idv_lb");
+		var oUl =document.getElementsByTagName("ul")[0];
+		var aLi = oUl.getElementsByTagName("li");
+		var aImg =oUl.getElementsByTagName("img");
+		var btn = document.getElementById("btn");
+		var aA = btn.getElementsByTagName("a");
+		//原始图片的宽度
+		var imgWidth = 1920;
+		//设置ul 的总宽度为三张图片宽度
+		oUl.style.width = imgWidth*aImg.length +"px";
+		//表示当前图片下标
+		var iNow =0;
+		var iNow2 =0;
+		//aA[iNow].className ="active";
+		
+		
+		//改变浏览器窗口大小的时候
+		function toResize(){
+			var viewWidth = document.documentElement.clientWidth;
+			if (viewWidth>1000)
+			{
+				for (var i=0;i<aImg.length ;i++ )
+				{
+					aImg[i].style.left =-(imgWidth-viewWidth)/2 +"px";
+				}
+			}
+			
+		}
+		//初始情况下先调用一遍
+		toResize();
+
+		window.onresize=function(){toResize();}
+
+		//点击按钮切换
+		for (var i=0;i<aA.length ;i++ )
+		{	aA[i].index=i;
+		//每个按钮注册点击事件，哪个被点击，就把它置为当前
+			aA[i].onclick=function(){
+				for (var j=0;j<aA.length ;j++ )
+				{
+					aA[j].className='';
+				}
+				this.className="active";
+			//点击的时候，让图片动起来
+			oUl.style.left =-(this.index *imgWidth) +"px";
+			//startMove(oUl,{left:-this.index *imgWidth},null,null);
+			}
+			
+		}
+
+		function toRun(){
+			if(iNow==2){			   
+				aLi[0].style.position="relative";
+				aLi[0].style.left =aLi.length * imgWidth +"px";
+				iNow=0;
+			}else{
+				iNow ++;
+			}
+			iNow2++;
+			for (var i=0;i<aA.length ;i++ )
+			{
+				aA[i].className='';
+			}
+			aA[iNow].className="active";
+
+			startMove(oUl,{left:-(iNow2*imgWidth)},1,function(){
+				if(iNow==0){
+					aLi[0].style.position="static";
+					oUl.style.left=0;
+					iNow2= 0;
+					//clearInterval(timer);
+				}
+			});
+			/*oUl.style.left =-(iNow2 *imgWidth) +"px";
+			var timer =setInterval(function(){
+			if(iNow==0){
+				aLi[0].style.position="static";
+				oUl.style.left=0;
+				iNow2= 0;
+				clearInterval(timer);
+			}
+			},1000);*/
+			
+			//这里要实现到最后一张的时候，将第一张紧随到后面播放  没实现
+			
+		}
+		setInterval(toRun,3000);
+	}
+ </script>
+ <body>
+ <!-- [if lte IE6] >
+ <div class="ie6_out"> </div>
+  <div class="ie6_in"> </div>
+ <! [endIf] -->
+  <div id="div_lb">
+	  <ul>
+		  <li><img src="../images/hw_1.jpg"/></li>
+		  <li><img src="../images/hw_2.jpg"/></li>
+		  <li><img src="../images/hw_3.jpg"/></li>
+	  </ul>
+	  <div id="btn">
+		  <a href="javascript:;" class="active"></a>
+		  <a href="javascript:;" ></a>
+		  <a href="javascript:;"></a>
+	  <div>
+  </div>
+  <!-- [if lte IE6] >
+  </div>
+  </div>
+  <![endif]  -->
+ </body>
+</html>

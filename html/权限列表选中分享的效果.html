@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="关键词一，关键词二">
+  <meta name="Description" content="网站描述内容">
+  <title>左右点击选择框移动内容</title>
+  <!--css js 文件的引入-->
+  <style type="text/css">
+  body{
+	-moz-user-select:none;/*火狐*/
+	-webkit-user-select:none;/*webkit浏览器*/
+	-ms-user-select:none;/*IE10*/
+	-khtml-user-select:none;/*早期浏览器*/
+	user-select:none;
+}
+
+  *{margin:0px; padding:0px;font-family:"微软雅黑";}
+  .gray{position:absolute; width:100%;height:100%; background:rgba(0,0,0,0.5); top:0px; left:0px; display:none;}
+  #selectCon{width:600px;height:500px; background:#fff; border:1px solid #ddd; position:absolute; left:450px;	display:none;			top:100px;}
+  #selectCon h3{height:30px; line-height:30px; color:#fff; font-size:14px; 							text-indent:10px;background:lightblue; font-weight:100;}
+  #selectCon h3 span{float:right; padding-right:10px;font-size:18px;cursor:pointer;	}
+  #sel_Con{width:560px; height:430px; margin:20px auto 0px;}
+
+  #sel_Con .sel_begin{width:200px; height:425px; float:left;}
+  #sel_Con ul.sel_beg,#sel_Con ul.ul_end,#provilege #list{cursor:pointer;width:200px; height:380px; border:1px solid #ddd ; background:#ebebeb; overflow-y:auto; }
+  #sel_Con .sel_but{width:110px; height:325px; margin:0px 10px 0px 10px; float:left; padding-top:100px;}
+  .sel_but .add,.add_all,.rem,.rem_all{cursor:pointer;}
+  #sel_Con .sel_end{width:200px; height:380px;   float:left;}
+
+  #sel_Con p, #provilege p{line-height:35px; color:#666; font-size:14px; text-indent:10px;}
+  #sel_Con ul.sel_beg li,ul.ul_end li, #provilege ul#list li{list-style-type:none; line-height:30px; font-size:14px; text-indent:10px;border-bottom:1px solid #666;border-radius:2px;}
+
+  .sel_but span{border:1px solid #ddd; background:#ebebeb; color:#666; text-align:center; line-height:40px;
+				display:block; border-radius:2px; margin:15px 0px; width:100px;}
+  .click_but{display:block; width:100px;line-height:40px; color:#fff; text-align:center; border-radius:5px;
+					background:#cc33cc; margin:10px auto;}
+  .bg_gray{background-color:lightgray;}
+  .bg_blue{background:lightblue;}
+  /*首页的权限展示列表*/
+  #provilege{margin:50px auto;}
+   #provilege #list {margin:0px auto;}
+   #provilege #list p{font-wight:blod;font-size:16px;border-bottom:4px solid #F63;}
+  </style>
+  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery-ui-1.8.20.js"></script>
+    <script type="text/javascript" >
+	/*这里是IE6-9禁止用户选中文字的事件  
+	document.body.onselectstart=document.body.ondrag=function(){
+		return false;
+	}*/
+	//申明两个变量保存li选中的下标，和是否按下了shift键
+	var _index,_isShift=null;
+	$(function(){	
+	//首页上进来 有多少个权限，则在已有的权限中就应该有多少个
+	
+		$("ul li").hover(function(){//鼠标悬停事件
+				$(this).addClass("bg_gray");
+			},function(){
+				$(this).removeClass("bg_gray");
+			});
+		$("ul.sel_beg li").toggle(function(){//鼠标点击事件
+				$(this).addClass("bg_blue");
+				//模拟shift连续选中事件
+				//当鼠标单击一次之后，保存li在ul中的下标，
+				_index=$(this).index();  //每次把选中的li的下标保存下来，覆盖前一次的
+				if(_isShift && _index>_isShift){//第二次点的li和前一次不同，并且在下面
+					for (var i=_isShift;i<_index;i++){
+						$("ul.sel_beg li").eq(i).addClass("bg_blue");
+					}
+				}
+				if(_isShift && _index<_isShift){//第二次点的li和前一次不同，并且在下面
+					for (var i=_index;i<_isShift;i++){
+						$("ul.sel_beg li").eq(i).addClass("bg_blue");
+					}
+				}
+			},function(){
+				$(this).removeClass("bg_blue");
+			});
+			
+			//捕捉键盘事件
+			$(document).keydown(function(e){
+				if(e.shiftKey)//当按下的是shift键的时候，就把刚刚选中的li的下标保存下来。
+				_isShift=_index;
+			});
+			$(document).keyup(function(e){
+				_isShift=null;
+			});
+			//点击添加和全部添加，将左边的移动到右边容器
+			$(".sel_but .add").click(function(){
+				$("ul.sel_beg li.bg_blue").appendTo($("ul.ul_end")).removeClass("bg_blue").hide().fadeIn(700);
+			});
+			$(".sel_but .add_all").click(function(){
+				$("ul.sel_beg li").appendTo($("ul.ul_end")).removeClass("bg_blue").hide().fadeIn(700);
+			});
+			//点击删除和全移除，将左边的移动到右边容器
+			$(".sel_but .rem").click(function(){
+				$("ul.ul_end li.bg_blue").appendTo($("ul.sel_beg")).removeClass("bg_blue").hide().fadeIn(700);
+			});
+			$(".sel_but .rem_all").click(function(){
+				$("ul.ul_end li").appendTo($("ul.sel_beg")).removeClass("bg_blue").hide().fadeIn(700);
+			});
+			
+			$("#selectCon").draggable({cursor: "move",containment:"body",delay:1000});
+	});
+    function submiter(){
+		var lis =$("ul.ul_end li").clone(true).each(function(index, element) {
+            $("#list").append($(this));
+        });;
+		//alert(lis);
+		
+		selHide();
+		//.each(function(){		
+			//list.push({"id":$(this).attr("id"),"name":$(this).text()});
+		//});
+		
+	}
+    function selHide(){
+		$("#selectCon").hide();
+		$(".gray").hide();
+	}
+	function selShow(){
+		$(".gray").show();
+		$("#selectCon").show(); 
+	}
+	
+	//定义鼠标拖动对象 
+drag=function (a,o){ 
+     var d=document;if(!a)a=window.event; 
+        if(!a.pageX)a.pageX=a.clientX; 
+        if(!a.pageY)a.pageY=a.clientY; 
+     var x=a.pageX,y=a.pageY; 
+     if(o.setCapture) 
+         o.setCapture(); 
+     else if(window.captureEvents) 
+         window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP); 
+     var backData = {x : o.style.top, y : o.style.left}; 
+     d.onmousemove=function(a){ 
+         if(!a)a=window.event; 
+         if(!a.pageX)a.pageX=a.clientX; 
+         if(!a.pageY)a.pageY=a.clientY; 
+         var tx=a.pageX-x+parseInt(o.style.left),ty=a.pageY-y+parseInt(o.style.top); 
+         o.style.left=tx+"px"; 
+         o.style.top=ty+"px"; 
+            x=a.pageX; 
+            y=a.pageY; 
+     }; 
+     d.onmouseup=function(a){ 
+         if(!a)a=window.event; 
+         if(o.releaseCapture) 
+             o.releaseCapture(); 
+         else if(window.captureEvents) 
+             window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP); 
+         d.onmousemove=null; 
+         d.onmouseup=null; 
+         if(!a.pageX)a.pageX=a.clientX; 
+         if(!a.pageY)a.pageY=a.clientY; 
+         if(!document.body.pageWidth)document.body.pageWidth=document.body.clientWidth; 
+         if(!document.body.pageHeight)document.body.pageHeight=document.body.clientHeight; 
+         if(a.pageX < 1 || a.pageY < 1 || a.pageX > document.body.pageWidth || a.pageY > document.body.pageHeight){ 
+             o.style.left = backData.y; 
+             o.style.top = backData.x; 
+         } 
+     }; 
+} 
+    </script>
+ </head>
+ <body>
+<span class="click_but" onClick="selShow()">点击弹窗</span>
+<div id="provilege">
+
+<ul id="list">
+<p>当前用户的权限</p>
+</ul>
+</div>
+ <div class="gray"></div>
+ <div id="selectCon"  onmousedown="drag(event,this)">
+	<h3>分配权限 <span class="close" onclick="selHide()">X</span></h3>
+	<div id="sel_Con">
+		<!--左选择框开始-->
+		<div class="sel_begin">
+			<p>请分配管理权限</p>
+			<ul class="sel_beg">
+				<li value="101">超级管理员</li>
+				<li value="102">普通管理员</li>
+				<li value="103">信息发布员</li>
+				<li value="104">财务管理员</li>
+				<li value="105">产品管理员</li>
+				<li value="106">资源管理员</li>
+				<li value="107">系统管理员</li>
+				<li value="108">超级管理员</li>
+				<li value="109">普通管理员</li>
+				<li value="110">信息发布员</li>
+				<li value="111">财务管理员</li>
+				<li value="112">产品管理员</li>
+				<li value="113">资源管理员</li>
+			</ul>
+		</div>
+		<!--左选择框结束-->
+
+		<!--中间按扭开始-->
+		<div class="sel_but">
+			<span class="add">添加></span>
+			<span class="add_all">全部添加>></span>
+			<span class="rem">移除<</span>
+			<span class="rem_all">全部移除<<</span>
+		</div>
+		<!--中间按扭结束-->
+
+		<!--右选择框开始-->
+		<div class="sel_end">
+			<p>已分配的管理权限</p>
+			<ul class="ul_end">
+				
+			</ul>
+            <button id="requre" onClick="submiter()"> 确 认 分 配 </button>
+		</div>
+		<!--右选择框结束-->
+
+	</div>
+ </div>
+  
+ </body>
+</html>

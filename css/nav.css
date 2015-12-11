@@ -1,0 +1,73 @@
+*{
+	margin:0;
+	padding:0;
+	font-family: "微软雅黑" ;
+}
+/*导航目录容器*/
+.nav{
+	 width:auto;
+	height:100%;
+	margin:10px 000;
+	background:#0CF;
+}
+/*目录*/
+.nav p.tit{
+	background:#39F;
+	width:100%;
+	text-align:center;
+	line-height:30px;
+	font-size:20px;
+	color:#3E0251;
+	font-weight:700;
+}
+/*列表标签选项*/
+.nav p span{
+	display:block;
+	width:50%;
+	line-height:30px;
+	background:#3CF;
+	float:left;
+	text-align:center;
+	cursor:pointer;
+}
+/*列表标签选项，悬停事件*/
+.nav p span:hover{
+	background:#999;
+	color:#FFF;
+	text-decoration:underline;
+}
+/*ul占满整个宽度，防止拉伸框架出现空白*/
+.nav ul{width:100%;}
+
+/*笔记的列表默认不显示*/
+.nav ul.note_ul{display:none;}
+
+.nav ul li{
+	cursor:pointer;
+	list-style-type:none;
+	line-height:30px;
+	border-bottom:1px solid #669;
+	border-radius:5px;
+	font-size:16px;
+	color:#636;
+	background:#FFC;
+	text-align:center;
+}
+/*鼠标悬停，改变背景颜色，并放大宽高*/
+.nav ul li:hover{
+	background:#999;
+	transform:scale(1.4,1.4);
+}
+/*a链接 鼠标悬停字体颜色改变，加下划线*/
+.nav ul li:hover a{
+	color:#FFF;
+	text-decoration:underline;
+}
+/*超链接样式*/
+.nav ul li a{
+	display:block;
+	width:100%;
+	line-height:inherit;
+	font-size:18px;
+	text-decoration:none;
+}

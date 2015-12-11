@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0;padding:0;}
+#main {width:1000px;height:530px;margin:0 auto;
+ background:red; overflow:hidden; position:relative;}
+#main #avi{width:1000px;height:530px;border:2px solid green;} 
+#main .show{position:absolute; top:0;left:0; z-index:10; 
+width:1000px;height:350px;background:#093;z-index:10;}
+#main .show p{position:absolute; top:0;left:1000px; z-index:15; width:100%}
+
+#pinglun{width:100%;height:100px;background:rgba(0,0,0,0.4);position:fixed;bottom:0px;left:0px;}
+#pinglun .ping{width:720px;height:50px;margin:15px auto;border:1px solid green;}
+.ping input.txt{display:inline-block;width:600px;line-height:35px;height:35px;border-radius:5px;border:1px solid #333;float:left;}
+.ping .sub{height:39px; width:100px;background:#990;border:1px solid #000;float:left;line-height:39px;display:inline-block;
+border-radius:5px;}
+
+
+</style>
+<script type="text/javascript" src="../js/jquery.js"></script>
+</head>
+<div id="main">
+    <div id="avi">
+   <video width="1000px" height="530px" controls autoplay src="file:///D|/1HTML/往期/html5css3PC加移动/css3创意菜单.wmv"></video>
+    </div>
+    <div class="show">
+        <p style="top:10px;">大神的富国</p><p style="top:30px;">gjg</p>
+        <p style="top:40px;">214234</p>
+    </div>
+    <div id="pinglun" >
+    	<div class="ping">
+        	<input class="txt" id="say" /><button class="sub">发表评论</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" >
+
+	//给发表的按钮添加事件
+	var _top =0;
+$("#pinglun button.sub").click(function(){
+	var txt = $("#pinglun input.txt").val();
+	if($.trim(txt)!=""){
+		$(".show").append("<p>"+txt+"</p>");
+	}else{
+		return false;
+	}
+	
+		$(".show p").each(function(index, ele) {
+			if(_top >330-20){ 
+			_top=0;
+			}
+				_top=_top+30;
+				$(this).css({left:1000,top:_top});
+				
+			$(this).animate({left:-10},Math.random()*10000+10000,function(){//超过频幕就移除
+				$(this).remove();
+			});
+			
+			//if($(this).position().left<0){alert(index);
+			//	$(this).remove();
+			//}
+			
+		});
+	
+	});
+
+
+
+</script>
+<body>
+</body>
+</html>

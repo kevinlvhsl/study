@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<canvas id="mycanvas"></canvas>
+</body>
+
+<script>
+	var ball ={x:512,y:100,r:20,g:2,vx:-4,vy:4,a:0.5,color:"#005588"}
+window.onload=function(){
+	var canvas =document.getElementById("mycanvas");
+	var context =canvas.getContext("2d");
+	canvas.width=1366;
+	canvas.height=768;
+	
+	setInterval(
+	function(){
+	render(context)
+	update()
+	},50)
+}
+
+/*画小球的方法*/
+function render(cxt){
+	cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height);//当前画布的宽度和高度
+	cxt.fillStyle =ball.color
+	cxt.beginPath();
+	cxt.arc(ball.x,ball.y,ball.r,0,2*Math.PI)
+	cxt.closePath();
+	cxt.fill();
+}
+
+
+function update(){
+	ball.x +=ball.vx 
+	ball.y +=ball.vy
+	ball.vy +=ball.g   //重力加速度
+	
+	if(ball.y> 768-ball.r){ //当小球的位置到达最下方的时候，不能再往下了，速度应该反向
+		ball.y=768-ball.r
+		ball.vy=-ball.vy*ball.a
+	}
+}
+
+
+</script>
+</html>

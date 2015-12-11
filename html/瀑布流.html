@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="关键词一，关键词二">
+  <meta name="Description" content="网站描述内容">
+  <title>Document</title>
+  <!--css js 文件的引入-->
+  <style type="text/css">
+  *{margin:0px; padding:0px;}
+  #pbl{width:1200px; height:10px;  margin:50px auto; position:relative;}
+  #pbl ul li{list-style-type:none; position:absolute;  box-shadow:0 0 10px #5effff;cursor:pointer}
+  #pbl ul li img{display:block; }
+  #pbl ul li div{position:absolute;left:170px;top:20px; border:1px solid gray;background:#eeeeee;border-radius:10px;		width:80px;height:30px; line-height:30px;text-align:center; display:none;}
+  
+  </style>
+ </head>
+ <body>
+
+  <div id="pbl">
+	<ul>
+		<li><img src="../images/4.jpg" /><div> 图片1</div><!--<span>这里可以写对图片的描述，然后鼠标放上去的时候显示出来</span>--></li>
+		<li><img src="../images/10.jpg" /><div>图片2</div></li>
+		<li><img src="../images/11.jpg" /><div>图片3</div></li>
+		<li><img src="../images/2.jpg" /><div> 图片4</div></li>
+		<li><img src="../images/12.jpg" /><div>图片5</div></li>
+		<li><img src="../images/13.jpg" /><div>图片6</div></li>
+		<li><img src="../images/5.jpg" /><div> 图片7</div></li>
+		<li><img src="../images/6.jpg" /><div> 图片8</div></li>
+		<li><img src="../images/1.jpg" /><div> 图片9</div></li>
+		<li><img src="../images/8.jpg" /><div> 图片10</div></li>
+		<li><img src="../images/9.jpg" /><div> 图片11</div></li>
+		<li><img src="../images/14.jpg" /><div>图片12</div></li>
+		<li><img src="../images/15.jpg" /><div>图片13</div></li>
+		<li><img src="../images/7.jpg" /><div> 图片14</div></li>
+		<li><img src="../images/3.jpg" /><div> 图片15</div></li>
+		<li><img src="../images/16.jpg" /><div>图片16</div></li>
+	</ul>
+  </div>
+
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+
+	$(window).load(function(){
+		var lis=$("#pbl ul li");
+		var pic_margin = 10; //图片之间间距
+		var lines =4;   //瀑布流图片的列数
+		
+
+
+		//问题****************************************************************************************
+		/*var toplist =new Object();
+			for(var i=0;i<lines;i++){//循环列数，有几列，就生成几个数组保存所有列的图片高度值
+				var listname = "line"+i;  //表示有几列就循环生成几个数组
+				toplist.listname=[];    //然后object的每个对象都赋值为 [] 
+			}
+			问题****************************************************************************************
+			      我想将图片的行数不写死，让它自己根据图片的多少排版，列数也只需要在最上面改一下就自动更改布局
+				  但是我在这里 new Object的时候，要将数组一个一个循环添加到obj对象的时候，一直没有成功
+				  我这个初始化写法对吗？ toplist.listname=[];
+			*/
+
+
+
+
+
+
+
+
+var toplist ={line1:[],line2:[],line3:[],line4:[]};
+/*第一步，确定要布局的列数，开始遍历li集合 */
+		lis.each(function(index){// 这里我用的是each 遍历方式，只需要将所有li遍历一次就可以完成全部设置
+			var pic_width =$(this).width(); //li的宽度 
+			var yushu =index%lines;  //每列的下标
+			var shang ;  // 没行的下标
+			if(yushu==0){  //第一列
+/*第二步，将图片分成4列，并确定好与左边的left定位*/
+				$(this).css("left","0");
+				toplist.line1.push(lis.eq(index).height()); //把第一列的所有图片的高度保存到数组中
+				shang =index/lines;
+/*第三步，将每一行的每一张图片定位与top的距离*/
+				if(Math.floor(shang)==0){//第一行
+					$(this).css("top","0");
+				}else { //下面的行
+					//alert(toplist.line1[0]);
+					var tops=0;
+					for (var j=0;j< Math.floor(shang); j++) //循环上面的行
+					{//j=0 表示 第一列列的第一行的图片  j=1 表示 该列的第二行
+						tops += toplist.line1[j] +pic_margin;
+						//alert(tops);
+					}
+					$(this).css("top",tops); //假如是第一列的第三行的图片 
+				}
+			}else if(yushu==1){//第二列
+				$(this).css("left",yushu*(pic_width+pic_margin));//第二步，将图片分成4列，并确定好与左边的left定位
+				toplist.line2.push(lis.eq(index).height()); //把第一列的所有图片的高度保存到数组中
+				shang =index/lines;
+				if(Math.floor(shang)==0){//第一行
+					$(this).css("top","0");
+				}else { //下面的行
+					//alert(toplist.line1[0]);
+					var tops=0;
+					for (var j=0;j< Math.floor(shang); j++) //循环上面的行
+					{//j=0 表示 第一列列的第一行的图片  j=1 表示 该列的第二行
+						tops += toplist.line2[j] +pic_margin;
+						//alert(tops);
+					}
+					$(this).css("top",tops); //假如是第一列的第三行的图片 
+				}
+			}else if(yushu==2){//第三列
+				$(this).css("left",yushu*(pic_width+pic_margin));//第二步，将图片分成4列，并确定好与左边的left定位
+				toplist.line3.push(lis.eq(index).height()); //把第一列的所有图片的高度保存到数组中
+				shang =index/lines;
+				if(Math.floor(shang)==0){//第一行
+					$(this).css("top","0");
+				}else { //下面的行
+					//alert(toplist.line1[0]);
+					var tops=0;
+					for (var j=0;j< Math.floor(shang); j++) //循环上面的行
+					{//j=0 表示 第一列列的第一行的图片  j=1 表示 该列的第二行
+						tops += toplist.line3[j] +pic_margin;
+						//alert(tops);
+					}
+					$(this).css("top",tops); //假如是第一列的第三行的图片 
+				}
+			}else if(yushu==3){//第四列
+				$(this).css("left",yushu*(pic_width+pic_margin));//第二步，将图片分成4列，并确定好与左边的left定位
+				toplist.line4.push(lis.eq(index).height()); //把第一列的所有图片的高度保存到数组中
+				shang =index/lines;
+				if(Math.floor(shang)==0){//第一行
+					$(this).css("top","0");
+				}else { //下面的行
+					//alert(toplist.line1[0]);
+					var tops=0;
+					for (var j=0;j< Math.floor(shang); j++) //循环上面的行
+					{//j=0 表示 第一列列的第一行的图片  j=1 表示 该列的第二行
+						tops += toplist.line4[j] +pic_margin;
+						//alert(tops);
+					}
+					$(this).css("top",tops); //假如是第一列的第三行的图片 
+				}
+			}
+
+			$(this).hover(function(){ //给每个li定义hover事件
+				$(this).find("div").bind("click",function(){
+					//alert("您点击了"+$(this).html());
+				}).fadeIn(500);   //.css("display","block");
+			},function(){
+				$(this).find("div").fadeOut(500);//.css("display","none");
+			});
+		});
+		
+		
+		
+
+		
+	
+	});
+
+</script>
+
+ </body>
+</html>

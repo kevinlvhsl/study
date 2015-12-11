@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="关键词一，关键词二">
+  <meta name="Description" content="网站描述内容">
+  <title>省-市-区-中学-四级菜单</title>
+  <style tyep="text/css">
+  #content{
+  width:70%;
+  height:400px;
+  background:#cccc33;
+  border:2px solid #ffff33;
+  box-shadow:0 0 20px #ff0033;
+  padding: 20 100px;
+  margin:40px auto;
+  }
+  #content div .desc{
+	margin-left:30px;
+
+  }
+  #content .desc p ul li:nth-child(even){background:red;}
+  #content select{
+  width:105px;   
+  height:25px; 
+  margin:30px auto 30px 30px; 
+  border:1px solid red;
+  border-radius:5px;
+  background:#00ff66;
+  box-shadow:0 0 10px #0033ff;
+  } 
+  #content span{margin:10px 25px auto 10px;}
+  </style>
+  <!--css js 文件的引入-->
+  <script type="text/javascript" src="../js/jquery.js"></script>
+ <script type="text/javascript">
+ // var tit ="华南地区";
+   //先初始化数据，默认给第一个下拉框添加上数据
+   var father="华南地区";
+   $(function(){ 
+	var sel =new Sel("content",4);
+	sel.add(father,["湖南","湖北","广东"]);//一级菜单显示1,2,3
+	//二级菜单
+	sel.add("湖南",["娄底","长沙","常德"]);
+	//三级菜单
+	sel.add("娄底",["涟源","冷江","新化"]);
+	sel.add("长沙",["长沙县","望城县","宁乡县"]);
+	sel.add("常德",["汉寿","武陵区","德新开发区"]);
+	//四级菜单
+	sel.add("涟源",["涟源二中","涟源一中","行知中学"]);
+	sel.add("冷江",["冷江一中","冷江五中","冷江⑧中"]);
+	sel.add("新化",["新化一中","新化5中","新化3中"]);
+
+	sel.add("长沙县",["维汉中学","长沙县一中","长沙县六中"]);
+	sel.add("望城县",["望城一中","望城4中","望城6中"]);
+	sel.add("宁乡县",["宁乡3中","宁乡1中","宁乡2中"]);
+
+	sel.add("汉寿",["汉寿一中","汉寿二中","汉寿八中"]);
+	sel.add("武陵区",["武陵一中","武陵二中","三中"]);
+	sel.add("德新开发区",["德新一中","德新二中","德新三中"]);
+	//-------------------------
+	sel.add("湖北",["武汉","石门","黄冈"]);//二级菜单显示1,2,3
+	//三级菜单
+	sel.add("武汉",["汉口","武昌","汉中"]);
+	sel.add("石门",["石板1","石头2","石桌3"]);
+	sel.add("黄冈",["黄小冈1","黄小冈2","黄小冈3"]);
+	//四级菜单
+	sel.add("黄小冈1",["黄11二中","黄11一中","黄11中学"]);
+	sel.add("黄小冈2",["黄22一中","黄22五中","黄22八中"]);
+	sel.add("黄小冈3",["黄33一中","黄33五中","黄33十二中"]);
+
+	sel.add("汉口",["汉口中学","汉口一中","汉口六中"]);
+	sel.add("武昌",["武昌一中","武昌4中","武昌6中"]);
+	sel.add("汉中",["汉中3中","汉中1中","汉中2中"]);
+
+	sel.add("石板1",["石板一中","石板二中","石板八中"]);
+	sel.add("石头2",["石头一中","石头二中","石头三中"]);
+	sel.add("石桌3",["石桌一中","石桌二中","石桌三中"]);
+	//--------------------------------------
+	sel.add("广东",["广州","东莞","惠州"]);//二级菜单显示1,2,3
+	//三级菜单
+	sel.add("广州",["天河","白云","萝岗区"]);
+	sel.add("东莞",["虎门","石龙","石碣"]);
+	sel.add("惠州",["惠民","惠港","惠大众"]);
+	//四级菜单
+	sel.add("天河",["天河二中","天河一中","天河中学"]);
+	sel.add("白云",["白云一中","白云五中","白云八中"]);
+	sel.add("萝岗",["萝岗一中","萝岗五中","萝岗十二中"]);
+
+	sel.add("虎门",["虎门中学","虎门一中","虎门六中"]);
+	sel.add("石龙",["石龙一中","石龙4中","石龙6中"]);
+	sel.add("石碣",["石碣3中","石碣1中","石碣2中"]);
+
+	sel.add("惠民",["惠民一中","惠民二中","惠民八中"]);
+	sel.add("惠港",["惠港一中","惠港二中","惠港三中"]);
+	sel.add("大众",["大众一中","大众二中","大众三中"]);
+	//调用初始化 
+	sel.init();
+	sel.firstSel(sel);
+	$("#content").append("<b><br><p style='float:right;'>--kevin的作业</p>");
+   });
+	//下拉框注册onchange事件selectedIndex
+   //前一个下拉框没有选择时，后面的下拉框不能选择
+   //前一个下拉框回归的 ‘请选择'时，后代都要收起来归为 ’请选择‘
+function forLevel(obj,index){
+	switch (index){
+		case 0:obj.append("<span >省</span>");break;
+		case 1:obj.append("<span >市</span>");break;
+		case 2:obj.append("<span >区(镇)</span>");break;
+		case 3:obj.append("<span >学校</span>");break;
+	}
+}
+
+  // var countrys =["china","USA","韩国"];
+
+   function Sel(id,len){ //自定义下拉框对象
+		this.parentObj =$("#"+id); //放到哪个父元素下面
+		this.data={};
+		this.selects =$("#"+id).find("select");
+		this.len=len;
+   }
+    Sel.prototype={ 
+		add:function(key,value){//给Sel对象添加数据
+			this.data[key]=value;  //给Sel对象的data属性添加数据，格式为{key1:value1,key2:value2,...}
+	   },
+	   init:function(){ //初始化数据 level为要初始化的层数
+		   var Temp = this; //定义一个临时变量下拉框对象
+			for (var i=0;i<this.len ;i++ )
+			{	
+				var sel_obj =$("<select index="+i+"></select>").append("<option>--请选择--</option>");
+				//sel_obj.index=i;//自定义一个属性i，第i个下拉框 i越小层级越高
+				this.parentObj.append(sel_obj);  //让页面生成多个select
+				var obj=this.parentObj;
+				forLevel(obj,i)
+				sel_obj.bind("change",function(){//当选项改变时，就把第几个改变的下标做参数传过去
+					Temp.changeIndex($(this).attr("index"));
+				});
+			}
+	   },
+	   firstSel:function(){// 初始第一层下拉框
+		  var obj=$(this).attr("data");
+		  var arr =obj[father];
+				var p=this.parentObj;
+				var sels=$(p).find("select");
+				this.selects =sels;
+			for (var i=0;i<arr.length ;i++ )
+			{
+				sels.eq(0).append($("<option value="+arr[i]+">"+arr[i]+"</option>"));
+
+			}
+	   },  
+	changeIndex:function(now){ 
+		//传过来第几个select的下标，就将第几个后面的下拉框开始赋值，如第一个改变，给第二个赋值
+		var txt =this.selects.eq(now).val();
+		var index =parseInt(now)+1;
+		if(now<this.selects.length-1){//如果选中的select后面还有下拉框 传过来3 =length-1了 就不执行了
+	//如果不是选中 --请选择-- 因为它没有value值
+			if(this.data[txt]){
+				var next =this.selects.eq(index);
+				next.empty().append("<option>--请选择--</option>");
+				//获取到选中的那个select选中的值
+				var now_len =this.data[txt].length;//下一个下拉框应该有几个子option
+				for (var i=0;i< now_len; i++)
+				{	
+					if(i==0)next.append("<option selected value="+this.data[txt][i]+">"+this.data[txt][i]+"</option>");
+					//alert(this.data[txt][i]);
+					else next.append("<option value="+this.data[txt][i]+">"+this.data[txt][i]+"</option>");
+				}
+				now++;
+				if(now<this.selects.length){//递归调用
+					this.changeIndex(now);
+				}
+			}else{
+	//如果选中的是 --请选择--，那么需要将他后面的所有下拉框变成 --请选择--
+				if(now<this.selects.length-1){
+					var next =this.selects.eq(index);
+					next.empty().append("<option>--请选择--</option>");//将后面的select还原
+				}
+				now++;
+				if(now<this.selects.length){
+					this.changeIndex(now);
+				}
+				
+			}
+		}
+  }
+}
+  
+  
+  </script> 
+ </head>
+ <body>
+ <form>
+ <div id="content" >
+	<div class="desc">
+		<p>以下是一个 <span>省-市-县(区/镇)-学校</span> 自动多层级联动下拉框，提供足够的数据，可以直接显示5层、6层等等。该层级实现，用到了以下知识点：
+		<li>对象Object</li>
+		<li>数组</li>
+		<li>自定义函数</li>
+		<li>prototype</li>
+		<li>递归</li>
+		<li>jquery对DOM的操作</li>
+		</ul></p>
+	</div>
+ </div>
+ <!--<select id="country"><option>请选择</option></select>
+
+<select id="province"><option>请选择</option></select>
+省
+<select id="city"><option>请选择</option>
+
+</select>
+市
+<select id="area"><option>请选择</option></select>
+区-->
+ </form>
+ </body>
+</html>

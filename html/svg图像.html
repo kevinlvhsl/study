@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>svg学习</title>
+ </head>
+ <body>
+  <script type="text/javascript">
+  window.onload=function(){
+  var svg = document.getElementById("one");
+  var po = document.getElementById("sanjiao");
+var angle=0.1;
+  setInterval(function(){
+	  angle+=0.1;
+	  var pos =po.points;
+
+	  for (var i=0;i<pos.length ;i++ )
+	  {
+		  pos[i].x+=15*Math.random()*Math.sin(angle);
+	  }
+  },50);
+}
+</script>
+以下是线性渐变和径向渐变
+
+<br/>
+<svg width="800px" height="300" version="1.1" id="one" border="1"
+xmlns="http://www.w3.org/2000/svg">
+<polygon points="220,100 ,100,210 ,170,250" id="sanjiao"
+style="fill:#cccccc;
+stroke:#000000;stroke-width:1"/>
+<rect x="10" y="10" rx="5" ry="5" width="100" height="80" fill="red" stroke="black">
+</rect>
+</svg>
+
+<svg width="800px" height="300" version="1.1" id="one" border="1"
+xmlns="http://www.w3.org/2000/svg">
+<rect
+x="10" y="10"
+rx="5" ry="5" 
+width="100" height="80"
+fill="red" stroke="black">
+</rect>
+<polygon 
+points="100 200 140 300 10 10" 
+stroke="blue" 
+fill="gray" 
+transform="translate(50 0)"
+>
+</polygon>
+</svg>
+
+
+ </body>
+</html>
+
+
