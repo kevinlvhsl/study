@@ -153,6 +153,7 @@ function addballs(x,y,num){
 	console.log(balls.length)
 }
 
+
 /**
 将balls数组循环一遍跟新小球状态
 */
