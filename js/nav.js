@@ -13,6 +13,6 @@ $(function(){
 		$(".note_ul").fadeOut(300).parent().find(".xiaoguo_ul").show(500);
 	});
 	$("p.type span.note").click(function(){
-	$(".xiaoguo_ul").fadeOut(300).parent().find(".note_ul").show(500);
-});
+		$(".xiaoguo_ul").fadeOut(300).parent().find(".note_ul").show(500);
+	});
 });
