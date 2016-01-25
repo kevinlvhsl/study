@@ -1,0 +1,104 @@
+// ================
+// Shadows
+// ================
+
+@function dot-shadows() {
+  
+  $shadows: null;
+      
+  @for $x from 1 through 10 {
+
+    $shadows: append($shadows, 0 $x * 4vmin 0 random(50) * .1vmin hsla(random(255), 200, 60, 1), comma);
+
+  }
+  
+  @return ($shadows);
+  
+}
+
+
+// ================
+// Dot 
+// ================
+
+.dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10vmin;
+  border-radius: 100%;
+  
+  @for $i from 1 through 22 { 
+  
+    &:nth-of-type(#{$i}) {
+      animation: bubble-#{$i} 5s .05s * $i infinite;
+      background: hsla(random(255), 200, 60, .95);
+      box-shadow: dot-shadows();
+      transform: 
+        rotate(360 / 22 * 1deg * $i)
+        scale(0)
+        translate(0, -44vmin);
+    }
+    
+  }
+  
+}
+
+@for $i from 1 through 22 {
+  
+  @keyframes bubble-#{$i} {
+    
+    50% {
+      background: rgba(random(255), 200, 60, .95);
+      box-shadow: dot-shadows();
+      transform: 
+        rotate(720 / 22 * 1deg * $i)
+        scale(1)
+        translate(0, -44vmin);
+    }
+    
+  }
+  
+}
+
+
+// ================
+// Structure 
+// ================
+
+*,
+*:before,
+*:after {
+  position: relative;
+  box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
+  background: #aae;
+}
+
+  body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 1vmin;
+    width: 1vmin;
+    animation: spin 8s infinite linear;
+    transform: 
+      translate(-50%, -50%)
+      rotate(0);
+  }
+
+  @keyframes spin {
+
+    100% {
+      transform:
+        translate(-50%, -50%)
+        rotate(-360deg);
+    }
+    
+  }
