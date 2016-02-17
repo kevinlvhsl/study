@@ -44,6 +44,7 @@ $("#pinglun button.sub").click(function(){
 	var txt = $("#pinglun input.txt").val();
 	if($.trim(txt)!=""){
 		$(".show").append("<p>"+txt+"</p>");
+		 $("#pinglun input.txt").val('')
 	}else{
 		return false;
 	}
