@@ -9,36 +9,77 @@
 		margin:50px auto;
 		
 	}
-	div#tubiao1{ width:50px;height:50px;border:5px solid #0066ff;border-radius:50px;line-height:50px;text-align:center;}
+	#anniu {
+		margin-top: 80px;
+		height: 40px;
+		background: none;
+		border: 2px solid lightblue;
+		border-radius: 20px;
+		width: 120px;
+		font-size: 16px;
+		font-family: '微软雅黑';
+		cursor: pointer;
+		display: block;
+	}
+	div#tubiao1{ 
+		width:50px;
+		height:50px;
+		border:5px solid #0066ff;
+		border-radius:50px;
+		line-height:50px;
+		text-align:center;
+		cursor: pointer;
+	}
 	#span1{display:block;
 		margin-left:18px;
 		margin-top:10px;
 		border:15px solid ;
 		border-color: transparent transparent transparent #0066ff;
     }
-	div#tubiao2{ width:50px;height:50px;border:5px solid #0066ff;border-radius:50px;line-height:50px;text-align:center;}
+	div#tubiao2{ 
+		width:50px;
+		height:50px;
+		border:5px solid #0066ff;
+		border-radius:50px;
+		line-height:50px;
+		text-align:center;
+		cursor: pointer;
+	}
 	#span2{
-	display:inline-block;
-	width:7px;height:30px;
-	margin-top:10px;
-	line-height:20px;
-	background:#0066ff;
-    }
+		display:inline-block;
+		width:7px;height:30px;
+		margin-top:10px;
+		line-height:20px;
+		background:#0066ff;
+	}
 	#span3{
-	margin-top:10px;
-	width:7px;height:30px;line-height:20px;
+		margin-top:10px;
+		width:7px;
+		height:30px;
+		line-height:20px;
 		display:inline-block;
 		background:#0066ff;
-    }
+        }
 	</style>
 	</head>
 	<body>
-        <script>
-		
-		 
+        
+		<center>
+		<div  id="anniu"/>打开音乐盒</div>
+		<div id="main">
+			<div id="tubiao1">
+			<span id="span1"></span>
+		</div>
+			
+			<div id="tubiao2">
+			<span id="span2"></span>
+			<span id="span3"></span>
+			</div>
+		 </div>
+		 <audio id="music" src="../voice/yeban.mp3" preload>您的浏览器不支持 audio 标签。</audio>	
+	<script>
 		 window.onload=function(){
 			 var mp3 = document.getElementById("music");
-			
 			/*document.onclick=function(){
 				if(!mp3.paused){
 					mp3.pause();
@@ -67,24 +108,8 @@
 					mp3.pause();
 				}
 			}
-		 
-		 
 		 }
-		</script>
-		<center>
-		<input type="button" id="anniu" value=" 打开音乐盒"/>
-		  <div id="main">
-		   <div id="tubiao1">
-			<span id="span1"></span>
-			</div>
-			
-			<div id="tubiao2">
-			<span id="span2"></span>
-			<span id="span3"></span>
-			</div>
-		 </div>
-		
-		 <audio id="music" src="../voice/yeban.mp3">您的浏览器不支持 audio 标签。</audio>
+	</script>
 	</body>
 </html>
 
