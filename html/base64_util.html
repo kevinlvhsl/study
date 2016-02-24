@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>base64 jiami</title>
+    <style>
+    .wrap {
+        margin: 30px auto;
+        width: 80%;
+        padding: 10px;
+        border: 1px solid gray;
+        border-radius: 15px;
+        background: rgba(99,99,99, .5);
+        text-align: center;
+        font-weight: bold;
+    }
+    input{
+        display: block;
+        height: 24px;
+        width: 80%;
+        margin: 20px 10%;
+    }
+    p {
+        color: green;
+        font-size: 18px;
+        
+    }
+    button{
+        height: 44px;
+        font-size: 20px;
+        line-height: 44px;
+        padding: 0 10px;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<script type="text/javascript" src="../js/base64.js"></script>
+<body>
+<div class="wrap">
+    请输入加密前密码：<input id="before" type="text">
+    <p>然后点击下面按钮得到加密后的密码</p>
+    <button id="btn" >encode加密</button><br><br>
+
+    得到的加密密码：<input id="after" type="text">
+    
+</div>
+<div class="wrap">
+    请输入解密前密码：<input id="before2" type="text">
+    <p>然后点击下面按钮得到解密后的密码</p>
+    <button id="btn2" >decode密码</button><br><br>
+
+    得到的解密密码：<input id="after2" type="text">
+</div>
+    <script>
+        var b = new Base64();  
+        var str = b.encode("abcdefghijk");  
+        // alert("base64 encode:" + str);  
+        console.log("base64 encode:" + str);  
+　　　　　//解密
+        str = b.decode(str);  
+        // alert("base64 decode:" + str);
+        console.log("base64 decode:" + str);
+        window.onload= function(){
+            var btn = document.getElementById("btn")
+            var afterInput = document.getElementById("after")
+            var btn2 = document.getElementById("btn2")
+            var afterInput2 = document.getElementById("after2")
+
+            btn.onclick = checkandEncode
+            btn2.onclick = checkandDecode
+
+            function checkandEncode (){
+                var before = document.getElementById("before").value 
+                if (before.trim()) {
+                    var str = b.encode(before)
+                    afterInput.value = str
+                }else{
+                    alert("请输入加密前密码！")
+                }
+                
+            }
+
+            function checkandDecode (){
+                var before2 = document.getElementById("before2").value 
+                if (before2.trim()) {
+                    var str = b.decode(before2)
+                    afterInput2.value = str
+                }else{
+                    alert("请输入解密密前密码！")
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>
