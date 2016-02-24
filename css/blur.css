@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.blur-div {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    top: 100px;
+    margin: 0 auto;
+
+}
+
+#blur-image {
+    height: 400px;
+    width: 400px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -moz-filter: blur(15px);
+    -webkit-filter: blur(5px) invert(.4) saturate(3) brightness(5); 
+    -o-filter: blur(15px);
+    filter: blur(5px) invert(.4) saturate(3) brightness(5);/*blur : 模糊处理，invert：颜色反转，saturate：色彩饱和度*/
+}
+
+#canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#show, #reset {
+    display: block;
+    height: 40px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    position: absolute;
+    bottom: -50px;
+    border-radius: 5px;
+}
+#show {
+    margin-left: 200px;
+    background-color: lightblue
+}
+#reset {
+    background-color: lightgreen
+}
