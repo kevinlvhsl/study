@@ -1,3 +1,3 @@
 # study
 learn case
-voice case
+all case
