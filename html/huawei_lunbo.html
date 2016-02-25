@@ -12,10 +12,10 @@
   li{list-style:none;}
   #div_lb{min-width:1000px;height:540px;position:relative;overflow:hidden;}
   #div_lb ul{position:absolute;left:0;
-	/* transition: left 1s;
-	-moz-transition: left 1s;	Firefox 4
-	-webkit-transition: left 1s;	Safari 和 Chrome
-	-o-transition: left 1s; */
+	 /*transition: left .5s;
+	-moz-transition: left .5s;	/*Firefox 4*/
+	/*-webkit-transition: left .5s;	Safari 和 Chrome
+	-o-transition: left .5s; */
   }
   #div_lb ul li{float:left;}
   #div_lb ul li img{position:relative;}
@@ -100,7 +100,7 @@
 			}
 			aA[iNow].className="active";
 
-			startMove(oUl,{left:-(iNow2*imgWidth)},1,function(){
+			startMove(oUl,{left:-(iNow2*imgWidth)},2,function(){
 				if(iNow==0){
 					aLi[0].style.position="static";
 					oUl.style.left=0;

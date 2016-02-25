@@ -1,7 +1,7 @@
-<!doctype html>
+锘�<!doctype html>
 <html>
 <head>
-<meta charset="gbk">
+<meta charset="utf-8">
 <title>cb gallery</title>
 <style>
 * { margin:0; padding:0;}
@@ -11,7 +11,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 .gallery ul { list-style:none; }
 .gallery img { display:block; width:100%;}
 
-/* 指示器 */
+/* 脰赂脢戮脝梅 */
 .indicator { position:absolute; bottom:10px; left:0; width:100%; font-size:0; text-align:center;}
 .indicator i { margin:0 5px; display:inline-block; width:10px; height:10px; background:#fff; border-radius:50%; box-shadow:0 1px 1px rgba(0,0,0,.1);}
 .indicator i:first-child::before { margin:2px; display:block; width:6px; height:6px; background:#e33; content:''; border-radius:50%; -webkit-animation:indicate 12s ease 0 infinite; animation:indicate 12s ease 0 infinite;}
@@ -28,7 +28,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 	80%, to { transform:translateX(60px);}
 }
 
-/* 淡入淡出 */
+/* 碌颅脠毛碌颅鲁枚 */
 .fade li { position:absolute; top:0; left:0; opacity:0;}
 .fade li:nth-child(1) { -webkit-animation:fade 12s ease 0 infinite; animation:fade 12s ease 0 infinite;}
 .fade li:nth-child(2) { -webkit-animation:fade 12s ease 3s infinite; animation:fade 12s ease 3s infinite;}
@@ -43,7 +43,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 	30% { opacity:0;}
 }
 
-/* 横向滚动 */
+/* 潞谩脧貌鹿枚露炉 */
 .roll li { position:absolute; top:0; left:100%; }
 .roll li:nth-child(1) { -webkit-animation:roll 12s ease 0 infinite; animation:roll 12s ease 0 infinite;}
 .roll li:nth-child(2) { -webkit-animation:roll 12s ease 3s infinite; animation:roll 12s ease 3s infinite;}
@@ -58,7 +58,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 	30%, to { transform:translateX(-1400px);}
 }
 
-/* 缩放 */
+/* 脣玫路脜 */
 .zoom li { position:absolute; top:0; left:0; opacity:0; -webkit-transform:scale(.01);}
 .zoom li:nth-child(1) { -webkit-animation:zoom 12s ease 0 infinite; animation:zoom 12s ease 0 infinite;}
 .zoom li:nth-child(2) { -webkit-animation:zoom 12s ease 3s infinite; animation:zoom 12s ease 3s infinite;}
@@ -73,7 +73,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 	30% { opacity:0; transform:scale(.01);}
 }
 
-/* 百叶窗 */
+/* 掳脵脪露麓掳 */
 .shutter li { position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;}
 .shutter li img { display:none;}
 .shutter li::before, .shutter li i::before, .shutter li i::after, .shutter li::after { float:left; display:block; width:25%; height:100%; content:''; -webkit-transform:rotateY(-90deg); transform:rotateY(-90deg);}
@@ -94,7 +94,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 	30%, to { transform:rotateY(90deg);}
 }
 
-/* 3D效果 */
+/* 3D脨搂鹿没 */
 .three-D { height:100%; background:#eee;}
 .three-D li { position:absolute; top:0; bottom:0; left:0; right:0; margin:auto; width:70%; height:70%; overflow:hidden; opacity:0; box-shadow:0 2px 3px rgba(0,0,0,.1); -webkit-transform:translateX(250px) scale(.7); transform:translateX(250px) scale(.7);}
 .three-D li:nth-child(1) { -webkit-animation:three-Dm 12s ease 0 infinite; animation:three-Dm 12s ease 0 infinite;}
@@ -132,7 +132,7 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 
 <body>
 	
-	<h1>CSS3图片轮播效果</h1>
+	<h1>CSS3脥录脝卢脗脰虏楼脨搂鹿没</h1>
 	<div id="gallery" class="gallery">
 		<ul class="fade">
 			<li><img src="http://www.w3cfuns.com/data/attachment/album/201411/14/113055bgmimu2ffbmuuff2.jpg" /><i></i></li>
@@ -148,13 +148,13 @@ h1 { margin:20px auto; width:700px; font:700 24px/30px 'microsoft yahei'; text-a
 		</p>
 	</div>
 	<div id="type" class="type">
-		<label>请选择轮播效果：</label>
+		<label>脟毛脩隆脭帽脗脰虏楼脨搂鹿没拢潞</label>
 		<select>
-			<option>淡入淡出</option>
-			<option>横向滚动</option>
-			<option>缩放</option>
-			<option>百叶窗</option>
-			<option>3D效果</option>
+			<option>碌颅脠毛碌颅鲁枚</option>
+			<option>潞谩脧貌鹿枚露炉</option>
+			<option>脣玫路脜</option>
+			<option>掳脵脪露麓掳</option>
+			<option>3D脨搂鹿没</option>
 		</select>
 	</div>
 	

@@ -1,0 +1,606 @@
+@charset 'utf-8';
+/* line 1, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+/* @charset "utf-8"; */
+
+/*reset 源自新浪*/
+/*左浮动*/
+/*右浮动*/
+/*宽高100%*/
+/*充值浏览器自带样式*/
+/* line 5, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img {
+  margin: 0;
+  padding: 0;
+}
+/* line 6, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+fieldset,
+img {
+  border: none;
+}
+/* line 7, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+img {
+  display: block;
+}
+/* line 8, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+address,
+caption,
+cite,
+code,
+dfn,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+/* line 9, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+ul,
+ol {
+  list-style: none;
+}
+/* line 10, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+input {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-family: "SimSun", "宋体";
+}
+/* line 11, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+input::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+/* line 12, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+select,
+input {
+  vertical-align: middle;
+}
+/* line 13, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+select,
+input,
+textarea {
+  font-size: 12px;
+  margin: 0;
+}
+/* line 14, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+input[type="text"],
+input[type="password"],
+textarea {
+  outline-style: none;
+  -webkit-appearance: none;
+}
+/* line 15, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+textarea {
+  resize: none;
+}
+/* line 16, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+input,
+textarea {
+  background: none;
+  border: none;
+}
+/* line 17, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 18, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+body {
+  color: #333;
+  font: 12px/20px "SimSun", "宋体", "Arial Narrow", HELVETICA;
+  background: #fff;
+}
+/* line 19, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+a {
+  color: #666;
+  text-decoration: none;
+}
+/* line 20, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+a:visited {
+  color: #666;
+}
+/* line 21, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+a:hover,
+a:active,
+a:focus {
+  color: #ff8400;
+  text-decoration: underline;
+}
+/*HTML5 DISPLAY-ROLE */
+/* line 23, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+/* line 27, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+blockquote,
+q {
+  quotes: none;
+}
+/* line 30, C:\Users\dell\Desktop\layerpic_v2.1\kevin.less */
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+/* line 17, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #e2e2e2;
+}
+/* line 20, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+#prev {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 32px;
+  left: 5%;
+  -webkit-animation: joggle-prev 1s infinite;
+  animation: joggle-prev 1s infinite;
+}
+/* line 25, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+#prev img {
+  width: 20px;
+  height: 32px;
+}
+/* line 30, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+#next {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 32px;
+  right: 5%;
+  -webkit-animation: joggle-next 1s infinite;
+  animation: joggle-next 1s infinite;
+}
+/* line 35, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+#next img {
+  width: 20px;
+  height: 32px;
+}
+/*指示箭头抖动动画*/
+@-webkit-keyframes joggle-prev {
+  /* line 54, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  0%,
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  /* line 55, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  30% {
+    -webkit-transform: translate3d(90%, 0, 0);
+  }
+  /* line 56, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  60% {
+    -webkit-transform: translate3d(40%, 0, 0);
+  }
+  /* line 57, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  80% {
+    -webkit-transform: translate3d(70%, 0, 0);
+  }
+}
+@keyframes joggle-prev {
+  /* line 60, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  /* line 61, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  30% {
+    transform: translate3d(90%, 0, 0);
+  }
+  /* line 62, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  60% {
+    transform: translate3d(40%, 0, 0);
+  }
+  /* line 63, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  80% {
+    transform: translate3d(70%, 0, 0);
+  }
+}
+@-webkit-keyframes joggle-next {
+  /* line 54, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  0%,
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  /* line 55, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  30% {
+    -webkit-transform: translate3d(-90%, 0, 0);
+  }
+  /* line 56, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  60% {
+    -webkit-transform: translate3d(-40%, 0, 0);
+  }
+  /* line 57, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  80% {
+    -webkit-transform: translate3d(-70%, 0, 0);
+  }
+}
+@keyframes joggle-next {
+  /* line 60, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  /* line 61, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  30% {
+    transform: translate3d(-90%, 0, 0);
+  }
+  /* line 62, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  60% {
+    transform: translate3d(-40%, 0, 0);
+  }
+  /* line 63, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  80% {
+    transform: translate3d(-70%, 0, 0);
+  }
+}
+/* line 72, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list {
+  width: 250px;
+  height: 480px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  list-style: none;
+  margin-top: -240px;
+  margin-left: -125px;
+}
+/* line 84, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+/* line 89, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li img {
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotateZ(12deg);
+  transform: rotateZ(12deg);
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  z-index: 5;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  /*景深*/
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+  border: 3px solid #ffffff;
+}
+/* line 106, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(1) {
+  z-index: 10;
+}
+/* line 108, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(1) img {
+  z-index: 10;
+  transform: rotateZ(0deg);
+  -webkit-transform: rotateZ(0deg);
+}
+/* line 111, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(1) .goimg {
+  animation: goimg 0.6s;
+  animation-delay: 2s;
+  animation-fill-mode: both;
+  -webkit-animation: goimg 0.6s;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 116, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(2) {
+  z-index: 9;
+}
+/* line 118, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(2) img {
+  z-index: 9;
+  transform: rotateZ(3deg);
+  -webkit-transform: rotateZ(3deg);
+}
+/* line 121, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(2) .goimg {
+  animation: goimg 0.6s;
+  animation-delay: 1.5s;
+  animation-fill-mode: both;
+  -webkit-animation: goimg 0.6s;
+  -webkit-animation-delay: 1.5s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 124, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(2) .backinit2 {
+  animation: backinit2 0.5s;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+  -webkit-animation: backinit2 0.5s;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 128, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(3) {
+  z-index: 8;
+}
+/* line 130, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(3) img {
+  z-index: 8;
+  transform: rotateZ(6deg);
+  -webkit-transform: rotateZ(6deg);
+}
+/* line 133, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(3) .goimg {
+  animation: goimg 0.6s;
+  animation-delay: 1s;
+  animation-fill-mode: both;
+  -webkit-animation: goimg 0.6s;
+  -webkit-animation-delay: 1s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 136, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(3) .backinit3 {
+  animation: backinit3 0.5s;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+  -webkit-animation: backinit3 0.5s;
+  -webkit-animation-delay: 0.3s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 140, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(4) {
+  z-index: 7;
+}
+/* line 142, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(4) img {
+  z-index: 7;
+  transform: rotateZ(9deg);
+  -webkit-transform: rotateZ(9deg);
+}
+/* line 145, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(4) .goimg {
+  animation: goimg 0.6s;
+  animation-delay: 0.5s;
+  animation-fill-mode: both;
+  -webkit-animation: goimg 0.6s;
+  -webkit-animation-delay: 0.5s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 148, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(4) .backinit4 {
+  animation: backinit4 0.5s;
+  animation-delay: 0.45s;
+  animation-fill-mode: both;
+  -webkit-animation: backinit4 0.5s;
+  -webkit-animation-delay: 0.45s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 152, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(5) {
+  z-index: 6;
+}
+/* line 154, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(5) img {
+  z-index: 6;
+  transform: rotateZ(12deg);
+  -webkit-transform: rotateZ(12deg);
+}
+/* line 157, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(5) .goimg {
+  animation: goimg 0.6s;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+  -webkit-animation: goimg 0.6s;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-fill-mode: both;
+}
+/* line 160, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.list li:nth-child(5) .backinit5 {
+  animation: backinit5 0.5s;
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
+  -webkit-animation: backinit5 0.5s;
+  -webkit-animation-delay: 0.6s;
+  -webkit-animation-fill-mode: both;
+}
+/*图片出场的动画*/
+/*img默认旋转角度*/
+/*图片飞出的效果动画*/
+@-webkit-keyframes goimg {
+  /* line 182, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    opacity: 0;
+    -webkit-transform: scale(1.5, 1.5) rotateZ(40deg) translateY(100px) translateX(300px);
+    -webkit-tranform-origin: 0 100%;
+  }
+  /* line 183, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    opacity: 1;
+  }
+}
+@keyframes goimg {
+  /* line 186, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    opacity: 0;
+    transform: scale(1.5, 1.5) rotateZ(40deg) translateY(100px) translateX(300px);
+    tranform-origin: 0 100%;
+  }
+  /* line 187, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    opacity: 1;
+  }
+}
+/* line 191, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.hideToright {
+  animation: rightHide .5s;
+  -webkit-animation: rightHide .5s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+/* line 197, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+.hideToleft {
+  animation: leftHide .5s;
+  -webkit-animation: leftHide .5s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+@keyframes rightHide {
+  /* line 217, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  /* line 218, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+@-webkit-keyframes rightHide {
+  /* line 224, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  /* line 226, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+  }
+}
+@keyframes leftHide {
+  /* line 217, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  /* line 218, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+@-webkit-keyframes leftHide {
+  /* line 224, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  /* line 226, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+  }
+}
+/* 第二张图片动画 */
+@-webkit-keyframes backinit2 {
+  /* .webkit-imgDown(3deg); */
+  /* line 235, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    -webkit-transform: rotateZ(3deg);
+  }
+  /* line 236, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    -webkit-transform: rotateZ(0deg);
+  }
+}
+@keyframes backinit2 {
+  /* line 270, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    transform: rotateZ(3deg);
+  }
+  /* line 271, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    transform: rotateZ(0deg);
+  }
+}
+/* 第三张图片动画 */
+@-webkit-keyframes backinit3 {
+  /* .webkit-imgDown(6deg); */
+  /* line 244, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    -webkit-transform: rotateZ(6deg);
+  }
+  /* line 245, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    -webkit-transform: rotateZ(3deg);
+  }
+}
+@keyframes backinit3 {
+  /* line 270, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    transform: rotateZ(6deg);
+  }
+  /* line 271, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    transform: rotateZ(3deg);
+  }
+}
+/* 第四张图片动画 */
+@-webkit-keyframes backinit4 {
+  /* .webkit-imgDown(9deg); */
+  /* line 253, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    -webkit-transform: rotateZ(9deg);
+  }
+  /* line 254, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    -webkit-transform: rotateZ(6deg);
+  }
+}
+@keyframes backinit4 {
+  /* .imgDown(9deg) */
+}
+/* 第五张图片动画 */
+@-webkit-keyframes backinit5 {
+  /* .webkit-imgDown(12deg); */
+  /* line 262, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    -webkit-transform: rotateZ(12deg);
+  }
+  /* line 263, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    -webkit-transform: rotateZ(9deg);
+  }
+}
+@keyframes backinit5 {
+  /* line 270, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  from {
+    transform: rotateZ(12deg);
+  }
+  /* line 271, C:\Users\dell\Desktop\layerpic_v2.1\duidie.less */
+  to {
+    transform: rotateZ(9deg);
+  }
+}

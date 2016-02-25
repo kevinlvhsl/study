@@ -43,8 +43,8 @@
    #provilege #list {margin:0px auto;}
    #provilege #list p{font-wight:blod;font-size:16px;border-bottom:4px solid #F63;}
   </style>
-  <script type="text/javascript" src="../js/jquery.js"></script>
-  <script type="text/javascript" src="../js/jquery-ui-1.8.20.js"></script>
+  <script type="text/javascript" src="../js/lib/jquery.js"></script>
+  <script type="text/javascript" src="../js/lib/jquery-ui-1.8.20.js"></script>
     <script type="text/javascript" >
 	/*这里是IE6-9禁止用户选中文字的事件  
 	document.body.onselectstart=document.body.ondrag=function(){
@@ -52,7 +52,7 @@
 	}*/
 	//申明两个变量保存li选中的下标，和是否按下了shift键
 	var _index,_isShift=null;
-	$(function(){	
+	$(function(){
 	//首页上进来 有多少个权限，则在已有的权限中就应该有多少个
 	
 		$("ul li").hover(function(){//鼠标悬停事件
